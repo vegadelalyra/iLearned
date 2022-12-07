@@ -1,7 +1,8 @@
-#!sudo /usr/bin env node
-let grayMatter = require('../src/index.js')
+#!/usr/bin/env node
+let global = require('../src/index.js')
+//// console.log(global) // { iLearned: [Function: iLearned] }
 
-let beefy = iLearned()
+let beefy = global.iLearned()
 beefy.newWord(
     'beefy',
     'muscular or robust',
