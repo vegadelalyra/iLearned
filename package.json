@@ -1,0 +1,25 @@
+{
+  "name": "ilearned",
+  "version": "1.0.0",
+  "description": "Save brand new learned vocabulary from any language: <br> All within console's command reach: iLearned",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vegadelalyra/iLearned.git"
+  },
+  "keywords": [],
+  "author": "Vega <lyradeperseo@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vegadelalyra/iLearned/issues"
+  },
+  "homepage": "https://github.com/vegadelalyra/iLearned#readme",
+  "bin": {
+    "iLearned": "./bin/global.js"
+  },
+  "preferGlobal": true
+}
+
