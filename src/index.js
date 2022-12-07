@@ -4,11 +4,12 @@ function iLearned(book = []) {
                 return book.push([word, def, exa])
             },
             anthology: function() {
-                return console.log(book[0].join(' > '))
+                return console.log(`Today I learned: \n ${book[0].join(' > ')}`)
             }
         }
 }
 
+// ? code block for testing
 // let miau = iLearned()
 // miau.newWord('a','b','c')
 // miau.anthology()
