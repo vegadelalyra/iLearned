@@ -1,6 +1,7 @@
 #!sudo /usr/bin env node
-let beefy = require('../src/index.js')
+let grayMatter = require('../src/index.js')
 
+let beefy = iLearned()
 beefy.newWord(
     'beefy',
     'muscular or robust',
