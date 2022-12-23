@@ -2,15 +2,17 @@
   "name": "ilearned",
   "version": "1.0.0",
   "description": "Save brand new learned vocabulary from any language: <br> All within console's command reach: iLearned",
-  "main": "index.js",
+  "main": "global.mjs",
   "scripts": {
-    "test": "node bin/global.js"
+    "test": "node bin/global.mjs"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vegadelalyra/iLearned.git"
   },
-  "keywords": [],
+  "keywords": [
+    "learn while coding, terminal dictionary', 'vocabulary terminal repository"
+  ],
   "author": "Vega <lyradeperseo@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -20,6 +22,11 @@
   "bin": {
     "iLearned": "./bin/global.js"
   },
-  "preferGlobal": true
+  "preferGlobal": true,
+  "dependencies": {
+    "ilearned": "^1.0.0",
+    "prompt-sync": "^4.2.0",
+    "prompt-sync-history": "^1.0.1",
+    "yargs": "^17.6.2"
+  }
 }
-
