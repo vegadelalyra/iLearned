@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-import {argv} from '../src/index.mjs'
+import {argv} from '../src/yargs.mjs'

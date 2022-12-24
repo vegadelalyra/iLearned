@@ -13,5 +13,5 @@ const argv = yargs(process.argv.slice(2))
 .help()
 .argv
 
-export {argv, argvInitialized }
+export { argv, argvInitialized }
 // p.history.save()
