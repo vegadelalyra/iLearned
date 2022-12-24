@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-import iLearned from '../src/index.mjs'
+import {argv} from '../src/index.mjs'
