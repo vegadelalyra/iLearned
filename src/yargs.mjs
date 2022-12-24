@@ -10,8 +10,7 @@ const argv = yargs(process.argv.slice(2))
 .command('today', 'Show all concepts learned today.')
 .command('inLife', 'Show all concepts learned historycally.')
 .example(`hyphen / the "-" symbol / Required to run CLI options`)
-.help()
+.help('h')
 .argv
 
 export { argv, argvInitialized }
-// p.history.save()

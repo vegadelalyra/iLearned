@@ -8,12 +8,13 @@ export default function iLearned(book = []) {
     const input = argvInitialized._
     .join(' ')
     .split('/')
-    .filter( el => { return el != null && el != '' } )
+    .filter( el => { return el != null && el != '' } ) ?? []
 
     const args = [input[0] ?? '', input[1] ?? '', input[2] ?? '']
-    let [word, def, exp] = args,
-    vars = [word, def, exp]
+    let [word, def, exp] = args
+    book = [word, def, exp]
 
     if (input.length < 4) console.log("\nSeems like somebody here has learned something new today :D\n")
-    return terminal_conversation(input, word, def, exp)
+
+    return terminal_conversation(input, ...book)
 }
