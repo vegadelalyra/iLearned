@@ -1,31 +1,54 @@
 import rl from './dependencies.mjs'
+import { trollMessages } from './trollMessages.mjs'
 
 export default async function record(input = '') { 
     if (input === '') console.log("\nA'ight, let's fix your record!")
     
-    switch (input.length) {
-        case 0:
-            let count = 0
-            do {
-                count++ ; 
-                count >= 12 && count < 24
-                ? console.log("\x1b[34mI have all day, human xD") 
-                : count >= 24 && count < 69
-                    ? console.log("\x1b[35mThat's all you've got? e_é")
-                    : count >= 69 ? console.log("\x1b[31mI'm a program, so my time is infinite, human. For you, time is limited.") : ''
-                arguments[1] = await new Promise( resolve => rl.question('\x1b[33m> What concept or word have you learned?\n', resolve ))
-            } while (arguments[1].trim() === '')
-        case 1:
-            arguments[2] = await new Promise( resolve => rl.question(`\n> Define ${arguments[1]}:\n`, resolve ))
-        case 2: 
-            arguments[3] = rl.question('\n\x1b> Give me an example <so we can say you have really got it... e_é>')
-        case 3:
-            console.log('\n', arguments[1], ' / ', arguments[2], ' / ', arguments[3] )
-            rl.question('Is this right? ', answer => {
-                if (/^[^yos]/i.test(answer) || answer.length == 0) return record()
+    const modifyValues = Object.assign({}, arguments)
+    let [a, b, c] = [1, 1, 1] // independent counters for trollMessage output correctly on each case.
 
-                console.log('\nLearning...')
-                setTimeout(() => console.log(`> New knowledge successfully recorded !!! ^^\n${arguments[1]} / ${arguments[2]} / ${arguments[3]}`), 1669)
+    switch (input.length) {
+
+        case 0:
+            do {
+                trollMessages(a++)
+                arguments[1] = await new Promise( resolve => {
+                    rl.question('\x1b[33m> What concept or word have you learned?\n\x1b[37m ', resolve)
+                    rl.write(modifyValues[1][1])
+                })
+            } while (arguments[1].trim() === '')
+            
+        case 1:
+            do {
+                trollMessages(b++)
+                arguments[2] = await new Promise( resolve => {
+                    rl.question(`\n\x1b[33m> Define ${arguments[1].trimEnd()}:\n\x1b[37m`, resolve)
+                    rl.write(modifyValues[1][2])
+                })
+            } while (arguments[2].trim() === '')
+                
+        case 2: 
+            do {
+                trollMessages(c++)
+                arguments[3] = await new Promise( resolve => {
+                    rl.question('\n\x1b[33m> Give me an example [so we can say you have really got it... e_é]\n\x1b[37m', resolve )
+                    rl.write(modifyValues[1][3])
+                })
+            } while (arguments[3].trim() === '')
+
+        case 3:
+            const chapter = `\n \x1b[33m{\x1b[37m ${arguments[1]} \x1b[33m / \x1b[37m ${arguments[2]} \x1b[33m / \x1b[37m ${arguments[3]} \x1b[33m}\x1b[37m`
+            
+            console.log(chapter)
+            console.log(' '.repeat(69))
+            rl.question('\x1b[33mIs this right? \x1b[37m', answer => {
+                if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
+                
+                console.log('\nLearning...\n')
+                setTimeout( () => {
+                    console.log( `\x1b[33m¡¡¡ New knowledge successfully recorded !!! ^^\n ${chapter}\n` )
+                    console.log(' '.repeat(200))
+                }, 1669 )
                 rl.close()
             }); rl.write('Yes')
             break
