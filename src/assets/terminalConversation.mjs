@@ -1,5 +1,8 @@
-import rl from './dependencies.mjs'
+import { fs, rl } from './dependencies.mjs'
 import { trollMessages } from './trollMessages.mjs'
+import chapter from './resultFormat.mjs'
+import '../../bin/input.mjs'
+import Book from './saveQueue.mjs'
 
 export default async function record(input = '') { 
 
@@ -14,6 +17,7 @@ export default async function record(input = '') {
             do {
                 trollMessages(a++)
                 arguments[1] = await new Promise( resolve => {
+                    // what if we try to modify our input bfhand?
                     rl.question('\x1b[33m> What concept or word have you learned?\n\x1b[37m ', input => {
                         resolve(input)
                     })
@@ -40,16 +44,24 @@ export default async function record(input = '') {
             } while (arguments[3].trim() === '')
 
         case 3:
-            console.log(rl.history)
-            const chapter = `\n \x1b[33m{\x1b[37m ${arguments[1]} \x1b[33m / \x1b[37m ${arguments[2]} \x1b[33m / \x1b[37m ${arguments[3]} \x1b[33m}\x1b[37m`
-            
-            console.log(chapter, '\n', ' '.repeat(69))
+            // showcase
+            const aNew = chapter(arguments[1], arguments[2], arguments[3])
+            console.log('\n', aNew, ' '.repeat(69))
+
+            // saving process handler
+            rl.historySize = 1
+            rl.on('history', h => {
+                h = `Book.enqueue(${ "'" + aNew + "'" })\n`
+                fs.appendFile( 'input.mjs', h, (err) => { if (err) throw err } )
+            })
+
+
             rl.question('\x1b[33mIs this right? \x1b[37m', answer => {
                 if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
-                
+                rl.historySize = 0
                 console.log('\nLearning...\n')
                 setTimeout( () => {
-                    console.log( `\x1b[33m¡¡¡ New knowledge successfully recorded !!! ^^\n ${chapter}\n`, ' '.repeat(200) )
+                    console.log( `\x1b[33m¡¡¡ New knowledge successfully recorded !!! *:･ﾟ✧＼(^ω^＼)\n\n ${Book.show()}\n`, ' '.repeat(200) )
                 }, 1669 )
                 rl.close()
             }); rl.write('Yes')

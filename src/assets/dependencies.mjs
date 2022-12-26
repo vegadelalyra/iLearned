@@ -1,5 +1,11 @@
 import readline from 'readline'
+import fs from 'fs'
 
-const rl = readline.createInterface(process.stdin, process.stdout) 
+const rl = readline.createInterface({
+    input: process.stdin, 
+    output: process.stdout,
+    history: [],
+    historySize: 0,
+}) 
 
-export default rl
+export { rl, fs }
