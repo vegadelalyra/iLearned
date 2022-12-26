@@ -62,8 +62,8 @@ class Queue {
       values.push(current.value)
       current = current.next
     }
-
-    return values
+    values[values.length - 1] = `> ${values.at(-1)}`
+    return values.join('\n')
   }
 }
 
