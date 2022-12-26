@@ -49,14 +49,14 @@ export default async function record(input = '') {
             console.log('\n', aNew, ' '.repeat(69))
 
             // saving process handler
-            rl.historySize = 1
+            // here was a history event before
 
             // user confirms record.
             rl.question('\x1b[33mIs this right? \x1b[37m', answer => {
                 if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
                 
                 const h = `Book.enqueue(${ "'" + aNew + "'" })\n`
-                fs.appendFile( 'input.mjs', h, (err) => { if (err) throw err } )
+                fs.appendFileSync( 'input.mjs', h, (err) => { if (err) throw err } )
                 Book.show()
 
                 console.log('\nLearning...\n')
@@ -65,7 +65,7 @@ export default async function record(input = '') {
                 setTimeout( () => {
                     console.log( `\x1b[33m¡¡¡ New knowledge successfully recorded !!! *:･ﾟ✧＼(^ω^＼)\n\n${Book.show()}\n`, ' '.repeat(200) )
                 }, 1669 )
-                
+                console.log(Book.show(), 'WHERE THE FUCK IS MY FIRST SHOW');
                 rl.close()
             }); rl.write('Yes')
             break
