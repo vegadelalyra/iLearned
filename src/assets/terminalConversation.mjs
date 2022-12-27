@@ -72,7 +72,8 @@ export default async function record(input = '') {
             break
             
         default:
-            console.error(`\x1b[31merror! iLearned command can only run 3 arguments. You're running ${input.length} :(`)
+            console.error(`\x1b\n[31mError!\n The iLearned command can only accept 3 arguments.\n It appears that you have provided 4 :(\n\n Please make sure to separate the arguments with\n a forward-slash >\x1b[37m / \x1b[31m< when using the iLearned command.\n`)
+            process.exit()
             break
     }
 }

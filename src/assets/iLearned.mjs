@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-// import { argvInitialized } from '../yargs.mjs'
+import yargs from 'yargs'
 import terminal_conversation from './terminalConversation.mjs'
 
 // my default option 
 export default function iLearned(book = []) {
-
-    const input = [1,34]
+    const argvInitialized = yargs(process.argv.slice(2)).argv
+    const input = argvInitialized._
     .join(' ')
     .split('/')
     .filter( el => { return el != null && el != '' } ) ?? []
