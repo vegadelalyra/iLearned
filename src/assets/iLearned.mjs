@@ -8,7 +8,8 @@ export default function iLearned(book = []) {
     const input = argvInitialized._
     .join(' ')
     .split('/')
-    .filter( el => { return el != null && el != '' } ) ?? []
+    .filter( el => { return el != null && el != '' } )
+    .map(item => item.trim()) ?? []
 
     const args = [input[0] ?? '', input[1] ?? '', input[2] ?? '']
     let [word, def, exp] = args

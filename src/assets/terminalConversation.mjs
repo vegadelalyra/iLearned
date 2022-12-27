@@ -59,9 +59,9 @@ export default async function record(input = '') {
                 console.log('\nLearning...\n')
                 
                 // saving process handler
-                const h = `Book.enqueue(${ "'" + aNew + "'" })\n`
+                const h = `Book.enqueue(${ "'" + aNew + "'" }, ${"'" + arguments[1] + "'"})\n`
                 fs.appendFile( 'input.mjs', h, (err) => { if (err) throw err } )            
-                Book.enqueue('\x1b[37m\n> ' + aNew)
+                Book.enqueue('\x1b[37m\n> ' + aNew, arguments[1])
 
                 // showcase result
                 setTimeout( () => {

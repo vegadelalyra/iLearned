@@ -1,8 +1,11 @@
+import { date_of_birth } from "./dependencies.mjs"
+
 class Node {
-    constructor(value) {
+    constructor(value, chapter) {
+      this.chapter = chapter
       this.value = value
       this.next = null
-      this.birth = new Date().getDate()
+      this.birth = date_of_birth()
     }
   }
   
@@ -14,8 +17,8 @@ class Queue {
   }
 
   // Add an element to the back of the queue
-  enqueue(word, def, exp) {
-    let newNode = new Node(word, def, exp)
+  enqueue(value, chapter) {
+    let newNode = new Node(value, chapter)
 
     if (this.head === null) {
       this.head = newNode
@@ -45,7 +48,7 @@ class Queue {
 
   // Look at the element at the front of the queue without removing it
   peek() {
-    return this.head ? this.head.value : null
+    return this.head ? this.head.birth : null
   }
 
   // Check if the queue is empty
@@ -63,6 +66,29 @@ class Queue {
       current = current.next
     }
     return values.join('\n ')
+  }
+
+  today() {
+    let current = this.head
+    let values = []
+    
+    while (current) {
+      if (current.birth != date_of_birth()) continue
+      values.push(current.value)
+      current = current.next
+    }
+    return values.join('\n ')
+  }
+
+  delete() {
+    let current = this.head
+    let values = []
+
+    while (current) {
+      values.push(current.chapter)
+      current = current.next
+    }
+    return values
   }
 }
 

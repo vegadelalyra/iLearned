@@ -8,4 +8,13 @@ const rl = readline.createInterface({
     historySize: 0,
 }) 
 
-export { rl, fs }
+const date_of_birth = () => {
+    const currentDate = new Date(),
+    day = currentDate.getDate().toString(),
+    month = String(currentDate.getMonth() + 1),
+    year = currentDate.getFullYear().toString()
+    return day+month+year
+  }
+  
+
+export { rl, fs, date_of_birth }
