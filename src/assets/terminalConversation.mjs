@@ -61,7 +61,7 @@ export default async function record(input = '') {
                 // saving process handler
                 const h = `Book.enqueue(${ "'" + aNew + "'" })\n`
                 fs.appendFile( 'input.mjs', h, (err) => { if (err) throw err } )            
-                Book.enqueue(aNew)
+                Book.enqueue('\x1b[37m\n> ' + aNew)
 
                 // showcase result
                 setTimeout( () => {

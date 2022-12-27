@@ -62,8 +62,7 @@ class Queue {
       values.push(current.value)
       current = current.next
     }
-    values[values.length - 1] = `\x1b[37m\n> ${values.at(-1)}`
-    return values.join('\n')
+    return values.join('\n ')
   }
 }
 
