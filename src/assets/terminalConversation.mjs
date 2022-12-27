@@ -20,7 +20,7 @@ export default async function record(input = '') {
                 trollMessages(a++)
                 arguments[1] = await new Promise( resolve => {
                     // what if we try to modify our input bfhand?
-                    rl.question('\x1b[33m> What concept or word have you learned?\n\x1b[37m ', input => {
+                    rl.question('\x1b[33m> What CONCEPT or WORD have you learned?\n\x1b[37m ', input => {
                         resolve(input)
                     })
                     rl.write(modifyValues[1][1])

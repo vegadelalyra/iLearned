@@ -14,7 +14,7 @@ export default function iLearned(book = []) {
     let [word, def, exp] = args
     book = [word, def, exp]
 
-    if (input.length < 4) console.log("\nSeems like somebody here has learned something new today (=^･ｪ･^=)\n")
+    if (input.length < 4) console.log("\nSeems like somebody here has learned something new today  ฅ ={^･ｪ･^}= \᳡ \n")
 
     return terminal_conversation(input, ...book)
 }
