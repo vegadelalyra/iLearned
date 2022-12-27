@@ -51,27 +51,24 @@ export default async function record(input = '') {
             console.log('\n\n', aNew, ' '.repeat(69))
 
             // user confirms record.
-            await new Promise ( resolve => {
+            rl.question('\x1b[33mIs this right? \x1b[37m', answer => {
+                // if negative, user will modify his input
+                if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
                 
-                rl.question('\x1b[33mIs this right? \x1b[37m', answer => {
-                    resolve('miau')
-                    // if negative, user will modify his input
-                    if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
-                    
-                    // if positive, user will registry knowledge
-                    console.log('\nLearning...\n')
-                    const h = `Book.enqueue(${ "'" + aNew + "'" })\n`
-                    fs.appendFile( 'input.mjs', h, (err) => { if (err) throw err } )            
-                    Book.enqueue(aNew)
-                    setTimeout( () => {
-                        console.log( `\x1b[33m¡¡¡ New knowledge successfully recorded !!! *:･ﾟ✧＼(^ω^＼)\n\n${Book.show()}\n`, ' '.repeat(200) )
-                    }, 1669 )
-                    rl.close()
-                }); rl.write('Yes')
-            })
-            
-            // saving process handler
+                // if positive, user will registry knowledge
+                console.log('\nLearning...\n')
+                
+                // saving process handler
+                const h = `Book.enqueue(${ "'" + aNew + "'" })\n`
+                fs.appendFile( 'input.mjs', h, (err) => { if (err) throw err } )            
+                Book.enqueue(aNew)
 
+                // showcase result
+                setTimeout( () => {
+                    console.log( `\x1b[33m¡¡¡ New knowledge successfully recorded !!! *:･ﾟ✧＼(^ω^＼)\n\n${Book.show()}\n`, ' '.repeat(200) )
+                }, 1669 )
+                rl.close()
+            }); rl.write('Yes')
             break
             
         default:
