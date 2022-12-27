@@ -8,9 +8,8 @@ export default async function record(input = '') {
     
     // when user wants to modify the record
     if (input === '') console.log("\nA'ight, let's fix your record!")
-    let modifyValues; input.length == 3 
-    ? modifyValues = Object.assign({}, arguments) 
-    : modifyValues = Object.assign({}, arguments)
+    let modifyValues = Object.assign({}, arguments) 
+    if (arguments[3] == '') modifyValues = Object.assign({}, {0:'', 1:arguments})
 
     let [a, b, c] = [1, 1, 1] // independent counters for trollMessage output correctly on each case.
 
