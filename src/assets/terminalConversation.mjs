@@ -5,10 +5,13 @@ import Book from './saveQueue.mjs'
 import '../../bin/input.mjs'
 
 export default async function record(input = '') { 
-
-    if (input === '') console.log("\nA'ight, let's fix your record!")
     
-    const modifyValues = Object.assign({}, arguments)
+    // when user wants to modify the record
+    if (input === '') console.log("\nA'ight, let's fix your record!")
+    let modifyValues; input.length == 3 
+    ? modifyValues = Object.assign({}, arguments) 
+    : modifyValues = Object.assign({}, arguments)
+
     let [a, b, c] = [1, 1, 1] // independent counters for trollMessage output correctly on each case.
 
     switch (input.length) {
@@ -38,7 +41,7 @@ export default async function record(input = '') {
             do {
                 trollMessages(c++)
                 arguments[3] = await new Promise( resolve => {
-                    rl.question('\n\x1b[33m> Give me an example [\x1b[37mso we can say you have really got it... e_é\x1b[33m]\n\x1b[37m', resolve )
+                    rl.question('\n\x1b[33m> Give me an example [\x1b[34mso we can say you have really got it... e_é\x1b[33m]\n\x1b[37m', resolve )
                     rl.write(modifyValues[1][3])
                 })
             } while (arguments[3].trim() === '')
@@ -58,17 +61,18 @@ export default async function record(input = '') {
                     
                     // if positive, user will registry knowledge
                     console.log('\nLearning...\n')
+                    const h = `Book.enqueue(${ "'" + aNew + "'" })\n`
+                    fs.appendFile( 'input.mjs', h, (err) => { if (err) throw err } )            
+                    Book.enqueue(aNew)
+                    setTimeout( () => {
+                        console.log( `\x1b[33m¡¡¡ New knowledge successfully recorded !!! *:･ﾟ✧＼(^ω^＼)\n\n${Book.show()}\n`, ' '.repeat(200) )
+                    }, 1669 )
                     rl.close()
                 }); rl.write('Yes')
             })
             
             // saving process handler
-            const h = `Book.enqueue(${ "'" + aNew + "'" })\n`
-            fs.appendFile( 'input.mjs', h, (err) => { if (err) throw err } )            
-            Book.enqueue(aNew)
-            setTimeout( () => {
-                console.log( `\x1b[33m¡¡¡ New knowledge successfully recorded !!! *:･ﾟ✧＼(^ω^＼)\n\n${Book.show()}\n`, ' '.repeat(200) )
-            }, 1669 )
+
             break
             
         default:
