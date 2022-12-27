@@ -1,8 +1,8 @@
 import { fs, rl } from './dependencies.mjs'
 import { trollMessages } from './trollMessages.mjs'
 import chapter from './resultFormat.mjs'
-import '../../bin/input.mjs'
 import Book from './saveQueue.mjs'
+import '../../bin/input.mjs'
 
 export default async function record(input = '') { 
 
@@ -46,28 +46,29 @@ export default async function record(input = '') {
         case 3:
             // showcase
             const aNew = chapter(arguments[1], arguments[2], arguments[3])
-            console.log('\n', aNew, ' '.repeat(69))
-
-            // saving process handler
-            // here was a history event before
+            console.log('\n\n', aNew, ' '.repeat(69))
 
             // user confirms record.
-            rl.question('\x1b[33mIs this right? \x1b[37m', answer => {
-                if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
+            await new Promise ( resolve => {
                 
-                const h = `Book.enqueue(${ "'" + aNew + "'" })\n`
-                fs.appendFileSync( 'input.mjs', h, (err) => { if (err) throw err } )
-                Book.show()
-
-                console.log('\nLearning...\n')
-                // rl.historySize = 0
-
-                setTimeout( () => {
-                    console.log( `\x1b[33m¡¡¡ New knowledge successfully recorded !!! *:･ﾟ✧＼(^ω^＼)\n\n${Book.show()}\n`, ' '.repeat(200) )
-                }, 1669 )
-                console.log(Book.show(), 'WHERE THE FUCK IS MY FIRST SHOW');
-                rl.close()
-            }); rl.write('Yes')
+                rl.question('\x1b[33mIs this right? \x1b[37m', answer => {
+                    resolve('miau')
+                    // if negative, user will modify his input
+                    if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
+                    
+                    // if positive, user will registry knowledge
+                    console.log('\nLearning...\n')
+                    rl.close()
+                }); rl.write('Yes')
+            })
+            
+            // saving process handler
+            const h = `Book.enqueue(${ "'" + aNew + "'" })\n`
+            fs.appendFile( 'input.mjs', h, (err) => { if (err) throw err } )            
+            Book.enqueue(aNew)
+            setTimeout( () => {
+                console.log( `\x1b[33m¡¡¡ New knowledge successfully recorded !!! *:･ﾟ✧＼(^ω^＼)\n\n${Book.show()}\n`, ' '.repeat(200) )
+            }, 1669 )
             break
             
         default:
