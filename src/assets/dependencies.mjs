@@ -15,10 +15,10 @@ const autocomplete = line => {
   // multiple autocompletions handler
   const keys_already_completed = []
   for (const key of completionsCurated) if (lineCurated.includes(key)) keys_already_completed.push(key)
-  const chunkedLine = new String(lineCurated.replace('', ''))
+  const chunkedLine = new String( keys_already_completed.reduce((acc, curr) => acc.replace(curr, ''), lineCurated)) 
 
-  console.log('chunked line:', chunkedLine, 'lineCurated:', lineCurated, completionsCurated);
-  return [hits.length ? hits : rest.length ? autocomplete(chunkedLine) : completions, line]
+  console.log('\nchunked line:', chunkedLine, 'lineCurated:', lineCurated)
+  return [hits.length ? hits : completions, line]
 }
 
 const rl = readline.createInterface({
