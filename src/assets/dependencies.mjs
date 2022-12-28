@@ -3,19 +3,22 @@ import readline from 'readline'
 import fs from 'fs'
 
 const autocomplete = line => {
+  // retrieve data and user input, cure both.
   const completions = Object.keys(Book.hashMap)
   const completionsCurated = completions.map(chapter => chapter.replaceAll(' ', '').toLowerCase())
   const lineCurated = new String(line.replaceAll(' ', '').toLowerCase())
   
-  // console.log(lineCurated, completionsCurated, '\n', lineCurated.includes(completionsCurated[0]), lineCurated.includes(completionsCurated[1]), lineCurated.includes(completionsCurated[2]))
+  // Filtering to trigger autocomplete and recursivity respectively
   const hits = completions.filter( c => c.toLowerCase().startsWith(line.toLowerCase()))
   const rest = completionsCurated.filter( r => !lineCurated.includes(r) )
-  const chunkedLine = new String(lineCurated.replace(hits[0]?.toLowerCase(), ''))
-  // for (const key of completionsCurated) {
-    // lineCurated.includes(key)
-  // }
-  console.log('chunked line:', chunkedLine, 'lineCurated:', lineCurated);
-  return [hits.length ? hits : completions, line]
+
+  // multiple autocompletions handler
+  const keys_already_completed = []
+  for (const key of completionsCurated) if (lineCurated.includes(key)) keys_already_completed.push(key)
+  const chunkedLine = new String(lineCurated.replace('', ''))
+
+  console.log('chunked line:', chunkedLine, 'lineCurated:', lineCurated, completionsCurated);
+  return [hits.length ? hits : rest.length ? autocomplete(chunkedLine) : completions, line]
 }
 
 const rl = readline.createInterface({
