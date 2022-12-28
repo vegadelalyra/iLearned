@@ -14,6 +14,7 @@ class Queue {
     this.head = null
     this.tail = null
     this.length = 0
+    this.hashMap = {}
   }
 
   // Add an element to the back of the queue
@@ -27,7 +28,7 @@ class Queue {
       this.tail.next = newNode
       this.tail = newNode
     }
-
+    this.hashMap[chapter] = value 
     this.length++
   }
 
@@ -80,15 +81,17 @@ class Queue {
     return values.join('\n ')
   }
 
-  delete() {
-    let current = this.head
-    let values = []
+  // Delete a given chapter of the book
+  delete(chapter) {
+    if (!this.hashMap[chapter]) return console.error(`\n\x1b[31m>>> ${chapter} is not recorded inside your brain!!! ...Yet (e.ó)/`);
 
-    while (current) {
-      values.push(current.chapter)
-      current = current.next
-    }
-    return values
+    const current = this.hashMap[chapter]
+
+    if (current === this.head.value) this.head = this.head.next
+    if (current === this.tail) this.tail = null
+
+    delete this.hashMap[chapter]
+    this.length--
   }
 }
 
