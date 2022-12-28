@@ -52,6 +52,8 @@ export default async function record(input = '') {
 
             // user confirms record.
             rl.question('\x1b[33mIs this right? \x1b[37m', answer => {
+                // if user sigint (signal interrupt) ^C, break the line
+
                 // if negative, user will modify his input
                 if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
                 

@@ -20,6 +20,12 @@ const date_of_birth = () => {
     year = currentDate.getFullYear().toString()
     return day+month+year
   }
-  
+
+  process.stdin.on('keypress', (char, key) => {
+    if (key.ctrl && key.name === 'c') {
+      console.log("\x1b[90m\nHmmmph... Wanderer... <.<'")
+      rl.close()
+    }
+  })
 
 export { rl, fs, date_of_birth }
