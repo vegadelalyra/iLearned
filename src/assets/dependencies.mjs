@@ -2,8 +2,13 @@ import Book from './saveQueue.mjs'
 import readline from 'readline'
 import fs from 'fs'
 
-const autocomplete = (line) => {
+const autocomplete = line  => {
   const completions = Object.keys(Book.hashMap)
+  const completionsCurated = completions.map(chapter => chapter.replaceAll(' ', '').toLowerCase())
+  const lineCurated = new String(line.replaceAll(' ', '').toLowerCase())
+  
+  console.log(lineCurated, completionsCurated, '\n', lineCurated.includes(completionsCurated[0]), lineCurated.includes(completionsCurated[1]), lineCurated.includes(completionsCurated[2]))
+
   const hits = completions.filter((c) => c?.toLowerCase()?.startsWith(line.toLowerCase()))
   return [hits.length ? hits : completions, line]
 }
