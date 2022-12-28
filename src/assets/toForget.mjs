@@ -13,14 +13,14 @@ export default async function toForget() {
         // get user input
         const userInput = await new Promise(resolve => rl.question('', resolve))
 
-        // curate user input 
-        const victims = new String(userInput.toLowerCase().replace(' ', ''))
+        // // curate user input 
+        // const victims = new String(userInput.toLowerCase().replace(' ', ''))
 
-        // retrieve keys from Book queue
-        const booKeys = Object.keys(Book.hashMap).map(chapter => chapter.toLowerCase())
+        // // retrieve keys from Book queue
+        // const booKeys = Object.keys(Book.hashMap).map(chapter => chapter.toLowerCase())
       
-        // compare booKeys with victims
-        console.log(victims, booKeys, victims.includes(booKeys[0]), victims.includes(booKeys[1]), victims.includes(booKeys[2]))
+        // // compare booKeys with victims
+        // console.log(victims, booKeys, victims.includes(booKeys[0]), victims.includes(booKeys[1]), victims.includes(booKeys[2]))
     }
     
     for (const chapter of chapters) {
