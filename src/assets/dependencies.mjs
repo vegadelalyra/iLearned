@@ -5,20 +5,11 @@ import fs from 'fs'
 const autocomplete = line => {
   // retrieve data and user input, cure both.
   const completions = Object.keys(Book.hashMap)
-  const completionsCurated = completions.map(chapter => chapter.replaceAll(' ', '').toLowerCase())
-  const lineCurated = new String(line.replaceAll(' ', '').toLowerCase())
-  
-  // Filtering to trigger autocomplete and recursivity respectively
-  const hits = completions.filter( c => c.toLowerCase().startsWith(line.toLowerCase()))
-  const rest = completionsCurated.filter( r => !lineCurated.includes(r) )
+  const lineCurated = line.trim().toLowerCase().split(' ')
 
-  // multiple autocompletions handler
-  const keys_already_completed = []
-  for (const key of completionsCurated) if (lineCurated.includes(key)) keys_already_completed.push(key)
-  const chunkedLine = new String( keys_already_completed.reduce((acc, curr) => acc.replace(curr, ''), lineCurated)) 
-
-  console.log('\nchunked line:', chunkedLine, 'lineCurated:', lineCurated)
-  return [hits.length ? hits : completions, line]
+  // get last user word to always trigger autocomplete on user input
+  const lastWordInput = lineCurated.at(-1)
+  return [completions.filter( key => key.toLowerCase().startsWith(lastWordInput)), lastWordInput]
 }
 
 const rl = readline.createInterface({

@@ -66,7 +66,7 @@ class Queue {
       values.push(current.value)
       current = current.next
     }
-    return values.join('\n ')
+    return values.join('\n\n ')
   }
 
   today() {
@@ -78,7 +78,7 @@ class Queue {
       values.push(current.value)
       current = current.next
     }
-    return values.join('\n ')
+    return values.join('\n\n ')
   }
 
   // Delete a given chapter of the book
