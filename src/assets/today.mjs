@@ -5,7 +5,7 @@ export default function today() {
     console.log(
         '\nToday I learned:\n\n', 
         Book.today(), 
-        `\n\n\n    *:・ﾟ✧ ＼（＾▽＾）／ ${Book.today() == '' ? 'ミ★ ...nothing xd ★彡' : ''}` 
+        `\n\n\n    *:・ﾟ✧ ＼（^ ▽ ^）／ ${Book.today() == '' ? 'ミ★ ...nothing xd ★彡' : ''}` 
     ) 
     process.exit()
 }

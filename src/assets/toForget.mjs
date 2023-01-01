@@ -40,28 +40,32 @@ export default async function toForget(userInputs) {
     
         default:
             let confirmation = []
-
+            
             // show off keys entered by the user on screen    
             const redLine = '='.repeat(process.stdout.columns)
-            console.log(redLine)
+            console.log(`\n\x1b[31m${redLine}\n`)
             for (const key of chapters) {
                 console.log( `\n ${Book.hashMap[key]}` )
                 confirmation.push(key.split(' ')[0])
             } 
-            console.log(`\n\x1b[31m${redLine}`)
-
-            // confirm user's decission
+            console.log(`\n\x1b[31m${redLine}\n`)
+            
+            // confirm user's decision
             if (confirmation.length > 1) {
                 const pop = confirmation.pop()
                 confirmation = `${confirmation.join(', ')} \x1b[33mand\x1b[37m ${pop}`
             }
             const question = `\x1b[33mAre you sure you want to forget \x1b[37m${confirmation}\x1b[33m?\x1b[37m\n`
-            rl.write('YEAH')
-            await new Promise( resolve => rl.question( question, answer => {
-                
-                resolve(answer)
-            }));
-            process.stdout.cursorTo(4)
+            await new Promise( resolve => {
+                rl.question( question, answer => {
+                    if (/^[^yos]/i.test(answer) || answer.length == 0) return toForget(new Array(0))
+                    resolve(answer)
+                })
+                rl.close()
+                rl.write('YEAH')
+            })
+            console.log('Forgetting...');
+            for (const chapter of chapters) Book.delete(chapter)
             break
     }
 
