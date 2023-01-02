@@ -27,14 +27,6 @@ export default async function toForget(userInputs) {
                 for (const index of keysIndex) askedKeys.push(Object.keys(Book.hashMap)[index])
                 resolve(askedKeys)
             }))
-            // await new Promise(resolve => {
-            //     rl.question('Are you sure you want to delete', userInput.trim()), answer => {
-            //         if (/^[^yos]/i.test(answer) || answer.length == 0) return 
-            //         resolve(answer)
-            //     }
-            // }); rl.write('YES')
-
-            // recursivity
             toForget(userInput)
             break
     
@@ -58,6 +50,7 @@ export default async function toForget(userInputs) {
             const question = `\x1b[33mAre you sure you want to forget \x1b[37m${confirmation}\x1b[33m?\x1b[37m\n`
             await new Promise( resolve => {
                 rl.question( question, answer => {
+                    
                     if (/^[^yos]/i.test(answer) || answer.length == 0) return toForget(new Array(0))
                     resolve(answer)
                 })
