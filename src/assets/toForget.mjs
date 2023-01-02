@@ -43,7 +43,7 @@ export default async function toForget(userInputs) {
             
             // show off keys entered by the user on screen    
             const redLine = '='.repeat(process.stdout.columns)
-            console.log(`\n\x1b[31m${redLine}\n`)
+            console.log(`\n\x1b[31m${redLine}`)
             for (const key of chapters) {
                 console.log( `\n ${Book.hashMap[key]}` )
                 confirmation.push(key.split(' ')[0])
@@ -61,11 +61,21 @@ export default async function toForget(userInputs) {
                     if (/^[^yos]/i.test(answer) || answer.length == 0) return toForget(new Array(0))
                     resolve(answer)
                 })
-                rl.close()
                 rl.write('YEAH')
             })
-            console.log('Forgetting...');
-            for (const chapter of chapters) Book.delete(chapter)
+            rl.close()
+            
+            console.log('\nForgetting...\n')
+            let timer = 300, scale = 2, deletePromises = []
+            for (const chapter of chapters) {
+                timer = timer * scale, scale = scale * 0.9
+                deletePromises.push(
+                    new Promise(resolve => setTimeout(
+                        () => resolve(Book.delete(chapter)), timer)))
+            }
+
+            Promise.all(deletePromises)
+            .then( () => setTimeout( () => console.log('\n'), 300 ) )
             break
     }
 
