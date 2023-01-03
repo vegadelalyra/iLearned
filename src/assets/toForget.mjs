@@ -2,10 +2,11 @@ import Book from "./saveQueue.mjs"
 import { rl } from "./dependencies.mjs"
 import userInput from "./userInput.mjs"
 
-export default async function toForget(userInputs) {
+export default async function toForget(userInputs, result = false) {
     // declare user's input
     const chapters = arguments[0]?.argv?._.slice(2) || userInputs
-    
+    if (result) return finished()
+
     switch (chapters.length) {
         case 0:
             // set up message
@@ -14,8 +15,7 @@ export default async function toForget(userInputs) {
             console.log(`\x1b[33m\n> Your knowledge so far:\n\n\n ${Book.show()}\n\n\n ${dontForgetMeUnU}\n ${msg}\n\x1b[31m`)
             
             // get user input with (or without) entries he wish to delete
-            await userInput()
-            break
+            return await userInput()
     
         default:
             let confirmation = []
@@ -36,18 +36,19 @@ export default async function toForget(userInputs) {
             }
             const question = `\x1b[33mAre you sure you want to forget \x1b[37m${confirmation}\x1b[33m?\x1b[37m\n`
             await userInput(question, 'YEAH', chapters)
-            rl.close()
-            console.log('\x1b[37m\n\nForgetting...\n')
-            let timer = 300, scale = 2, deletePromises = []
-            for (const chapter of chapters) {
-                timer = timer * scale, scale = scale * 0.9
-                deletePromises.push(
-                    new Promise(resolve => setTimeout(
-                        () => resolve(Book.delete(chapter)), timer)))
-            }
-
-            await Promise.all(deletePromises)
-            .then( () => setTimeout( () => console.log('\n'), 300 ))
-            break
+    }
+    function finished() {
+        rl.close()
+        console.log('\x1b[37m\n\nForgetting...\n')
+        let timer = 300, scale = 2, deletePromises = []
+        for (const chapter of chapters) {
+            timer = timer * scale, scale = scale * 0.9
+            deletePromises.push(
+                new Promise(resolve => setTimeout(
+                    () => resolve(Book.delete(chapter)), timer)))
+        }
+            
+        Promise.all(deletePromises)
+        .then( () => setTimeout( () => console.log('\n'), 300 ))
     }
 }

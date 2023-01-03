@@ -92,7 +92,7 @@ class Queue {
 
     delete this.hashMap[chapter]
     this.length--
-    return console.log(chapter, 'deleted')
+    return console.log(chapter, '\x1b[33mdeleted\x1b[37m')
   }
 }
 

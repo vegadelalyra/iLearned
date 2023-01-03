@@ -19,7 +19,7 @@ export default async function(question = '', write = '', accKeys = false) {
       
       // guard clause
       resolve(askedKeys)
-      if (!/^[^yos]/i.test(answer) && accKeys && !askedKeys.length) return guard = false
+      if (!/^[^yos]/i.test(answer) && accKeys && !askedKeys.length) guard = false
     })
       // in any case admon wants to add any default input text.
       rl.write(write)
@@ -29,6 +29,7 @@ export default async function(question = '', write = '', accKeys = false) {
     if (guard) return toForget(userInput)
     else {
       console.log('If my logic is correct, then this should be seen')
+      toForget(userInput, true)
     }
     // toForget(userInput)
   }
