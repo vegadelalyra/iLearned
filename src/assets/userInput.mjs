@@ -2,7 +2,7 @@ import Book from "./saveQueue.mjs"
 import { rl } from "./dependencies.mjs"
 import toForget from "./toForget.mjs"
 
-export default async function(question = '', write = '') {
+export default async function(question = '', write = '', accKeys = false) {
     const userInput = await new Promise(resolve => {
       rl.question(question, answer => {
       // curate user input and recorded entries
@@ -15,14 +15,14 @@ export default async function(question = '', write = '') {
      
       // return an array with the entries entered by the user
       for (const index of keysIndex) askedKeys.push(Object.keys(Book.hashMap)[index])
-
-      // guard clause with regEx to filter false responses.  
-      console.log(askedKeys.length != 0,/^[^yos]/i.test(answer), askedKeys);
-      if (/^[^yos]/i.test(answer) && askedKeys.length == 0) return toForget(new Array(0))
       resolve(askedKeys)
+
+      ///^[^yos]/i.test(answer)
       })
         // in any case admon wants to add any default input text.
         rl.write(write)
     })
-    toForget(userInput)
+      // guard clause
+    if (accKeys) userInput.push(...accKeys)
+    return toForget(userInput)
   }

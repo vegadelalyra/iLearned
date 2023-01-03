@@ -35,9 +35,8 @@ export default async function toForget(userInputs) {
                 confirmation = `${confirmation.join(', ')} \x1b[33mand\x1b[37m ${pop}`
             }
             const question = `\x1b[33mAre you sure you want to forget \x1b[37m${confirmation}\x1b[33m?\x1b[37m\n`
-            await userInput(question, 'YEAH')
+            await userInput(question, 'YEAH', chapters)
             rl.close()
-            
             console.log('\x1b[37m\nForgetting...\n')
             let timer = 300, scale = 2, deletePromises = []
             for (const chapter of chapters) {
