@@ -19,17 +19,14 @@ export default async function(question = '', write = '', accKeys = false) {
       
       // guard clause
       resolve(askedKeys)
-      if (!/^[^yos]/i.test(answer) && accKeys && !askedKeys.length) guard = false
+      if (!/^[^yos]/i.test(answer) && accKeys && !askedKeys.length && answer) guard = false
     })
       // in any case admon wants to add any default input text.
       rl.write(write)
     })
-      // guard clause
-    if (accKeys) userInput.push(...accKeys)
+      // guard clauses
+    if (accKeys) if (userInput.length > 0) userInput.push(...accKeys)
     if (guard) return toForget(userInput)
-    else {
-      console.log('If my logic is correct, then this should be seen')
-      toForget(userInput, true)
-    }
+    else userInput.push(...accKeys); toForget(userInput, true)
     // toForget(userInput)
   }
