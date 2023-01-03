@@ -1,5 +1,6 @@
 import Book from "./saveQueue.mjs"
 import { rl } from "./dependencies.mjs"
+import userInput from "./userInput.mjs"
 
 export default async function toForget(userInputs) {
     // declare user's input
@@ -13,21 +14,7 @@ export default async function toForget(userInputs) {
             console.log(`\x1b[33m\n> Your knowledge so far:\n\n\n ${Book.show()}\n\n\n ${dontForgetMeUnU}\n ${msg}\n\x1b[31m`)
             
             // get user input with (or without) entries he wish to delete
-            const userInput = await new Promise(resolve => rl.question('', answer => {
-
-                // curate user input and recorded entries
-                const InputCurated = answer.replaceAll(' ', '').toLowerCase()
-                const keys = Object.keys(Book.hashMap).map(key => key.replaceAll(' ', '').toLowerCase())
-
-                // filter the keys/entries already entered for the user.
-                const keysIndex = [], askedKeys = []
-                for (const key of keys) if ( InputCurated.includes(key) ) keysIndex.push(keys.indexOf(key))
-
-                // return an array with the entries entered by the user
-                for (const index of keysIndex) askedKeys.push(Object.keys(Book.hashMap)[index])
-                resolve(askedKeys)
-            }))
-            toForget(userInput)
+            await userInput()
             break
     
         default:
@@ -48,14 +35,7 @@ export default async function toForget(userInputs) {
                 confirmation = `${confirmation.join(', ')} \x1b[33mand\x1b[37m ${pop}`
             }
             const question = `\x1b[33mAre you sure you want to forget \x1b[37m${confirmation}\x1b[33m?\x1b[37m\n`
-            await new Promise( resolve => {
-                rl.question( question, answer => {
-                    
-                    if (/^[^yos]/i.test(answer) || answer.length == 0) return toForget(new Array(0))
-                    resolve(answer)
-                })
-                rl.write('YEAH')
-            })
+            await userInput(question, 'YEAH')
             rl.close()
             
             console.log('\nForgetting...\n')
@@ -71,19 +51,4 @@ export default async function toForget(userInputs) {
             .then( () => setTimeout( () => console.log('\n'), 300 ) )
             break
     }
-
-
-        // // retrieve keys from Book queue
-        // const booKeys = Object.keys(Book.hashMap).map(chapter => chapter.toLowerCase())
-      
-        // // compare booKeys with victims
-        // console.log(victims, booKeys, victims.includes(booKeys[0]), victims.includes(booKeys[1]), victims.includes(booKeys[2]))
-    
-    // for (const chapter of chapters) {
-    //     let book =+ Book.hashMap[chapter] + `\n`
-    //     console.log(`\n${book}\n`)
-    // }
-
-    // Book.delete(chapter)
-    // return process.exit()
 }
