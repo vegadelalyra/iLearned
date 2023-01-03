@@ -38,7 +38,7 @@ export default async function toForget(userInputs) {
             await userInput(question, 'YEAH')
             rl.close()
             
-            console.log('\nForgetting...\n')
+            console.log('\x1b[37m\nForgetting...\n')
             let timer = 300, scale = 2, deletePromises = []
             for (const chapter of chapters) {
                 timer = timer * scale, scale = scale * 0.9
