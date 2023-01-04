@@ -52,16 +52,21 @@ export default async function toForget(userInputs, result = false) {
         Promise.all(deletePromises)
         .then( () => setTimeout( () => console.log('\n'), 300 ))
         
+        // deletes chosen keys from memory
         import('./dependencies.mjs')
         .then(Module => {
-            const path = '../bin/input.mjs' 
+            const path = 'input.mjs' 
             Module.fs.readFile(path, 'utf8', (err, data) => {
             if (err) throw err
             console.log()
-            const lines = data.split('\n')
-            const newLines = lines.filter( line => !inputs.some(input => line.includes("`, `" + input + "`)") ) )
+            const lines = data.split('\n'),
+            newLines = lines.filter( line => !inputs.some(input => line.includes("`, `" + input + "`)") ) ),
+            oldLines = lines.filter( line => inputs.some(input => line.includes("`, `" + input + "`)") ) )
 
+            // forget books from library
             Module.fs.writeFile(path, newLines.join('\n'), err => { if (err) throw err })
+            // saves forgotten books from library on "remembering" command
+            Module.fs.writeFile('../src/assets/commands/remembering/forgotten.mjs', oldLines.join('\n'), err => { if (err) throw err })
         })})
     }
 }

@@ -12,6 +12,7 @@ const argv = yargs(process.argv.slice(2))
 .command('today', 'Show all concepts learned today', today)
 .command('in my life', 'Show all concepts learned in life', inMyLife)
 .command('to forget', 'Delete concepts [pass its names]', toForget)
+.command('remembering', 'Recovers last deleted concept/s', )
 .example(`iLearned heat hiːt / to make something warm / learn will heat your soul `)
 .help()
 .argv
