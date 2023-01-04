@@ -60,14 +60,8 @@ export default async function toForget(userInputs, result = false) {
             if (err) throw err
 
             const lines = data.split('\n'),
-            newLines = []
-            for (const line of lines) {
-                for (const input of inputs) {
-                    if (!line.includes("`, `" + input + "`)")) newLines.push(line)
-                }
-            }
-            console.log(newLines);
-            const oldLines = lines.filter( line => inputs.includes(input => line.includes("`, `" + input + "`)") ) ),
+            newLines = lines.filter(line => !inputs.some(input => line.includes("`, `" + input + "`)"))),
+            oldLines = lines.filter(line => inputs.some(input => line.includes("`, `" + input + "`)"))),
             oldLinesIndexes = oldLines.map( oldLine => lines.findIndex(line => line === oldLine) ),
             ForgottenObject = oldLinesIndexes.reduce( (acc, index, i) => {
                 acc[index] = oldLines[i]
