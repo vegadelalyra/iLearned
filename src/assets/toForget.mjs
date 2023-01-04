@@ -39,7 +39,6 @@ export default async function toForget(userInputs, result = false) {
     }
     function finished(inputs = chapters) {
         rl.close()
-        console.log(inputs);
         console.log('\x1b[37m\n\nForgetting...\n')
         let timer = 300, scale = 2, deletePromises = []
         for (const chapter of chapters) {
@@ -62,19 +61,22 @@ export default async function toForget(userInputs, result = false) {
             const lines = data.split('\n'),
             newLines = lines.filter(line => !inputs.some(input => line.includes("`, `" + input + "`)"))),
             oldLines = lines.filter(line => inputs.some(input => line.includes("`, `" + input + "`)"))),
-            oldLinesIndexes = oldLines.map( oldLine => lines.findIndex(line => line === oldLine) ),
-            ForgottenObject = oldLinesIndexes.reduce( (acc, index, i) => {
+            oldLinesIndexes = oldLines.map( oldLine => lines.findIndex(line => line === oldLine) )
+            let ForgottenObject = oldLinesIndexes.reduce( (acc, index, i) => {
                 acc[index] = oldLines[i]
                 return acc
-            }, {} )
+            }, {})
+            ForgottenObject = `export const forgotten = {\n${Object.entries(ForgottenObject).map(([key, value]) => `\t${key}: ${value}`).join(',\n')}\n}`
 
-            console.log('newLines', newLines, 'oldLines', oldLines, 'oldLinesIndexes', oldLinesIndexes)
             // forget books from library
             Module.fs.writeFile(path, newLines.join('\n'), err => { if (err) throw err })
 
             // saves forgotten books from library on "remembering" command
-            // const imp = 'import Book from "../../saveQueue.mjs"'
-            Module.fs.writeFile('../src/assets/commands/remembering/forgotten.mjs', JSON.stringify(ForgottenObject), err => { if (err) throw err })
+            Module.fs.writeFile(
+                '../src/assets/commands/remembering/forgotten.mjs', 
+                ForgottenObject, 
+                err => { if (err) throw err 
+            })
         })})
     }
 }
