@@ -37,8 +37,9 @@ export default async function toForget(userInputs, result = false) {
             const question = `\x1b[33mAre you sure you want to forget \x1b[37m${confirmation}\x1b[33m?\x1b[37m\n`
             await userInput(question, 'YEAH', chapters)
     }
-    function finished(inputs = userInput) {
+    function finished(inputs = chapters) {
         rl.close()
+        console.log(inputs);
         console.log('\x1b[37m\n\nForgetting...\n')
         let timer = 300, scale = 2, deletePromises = []
         for (const chapter of chapters) {
@@ -53,7 +54,7 @@ export default async function toForget(userInputs, result = false) {
         
         import('./dependencies.mjs')
         .then(Module => {
-            const path = '../../bin/input.mjs' 
+            const path = '../bin/input.mjs' 
             Module.fs.readFile(path, 'utf8', (err, data) => {
             if (err) throw err
             console.log()
