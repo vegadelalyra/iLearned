@@ -8,7 +8,9 @@ export default async function() {
     const curatedLines = i => forgotten[i].substring(1, forgotten[i].length - 1)
 
     // Question user
-    await new Promise( resolve => rl.question(`Are you trying to remember`)
+    await new Promise( resolve => {
+        rl.question(`\x1b[33m>Are you trying to remember, `, resolve)
+    })
 
     // Read the file into memory
     return fs.readFile('input.mjs', 'utf8', (err, data) => {
