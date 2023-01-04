@@ -61,12 +61,20 @@ export default async function toForget(userInputs, result = false) {
             console.log()
             const lines = data.split('\n'),
             newLines = lines.filter( line => !inputs.some(input => line.includes("`, `" + input + "`)") ) ),
-            oldLines = lines.filter( line => inputs.some(input => line.includes("`, `" + input + "`)") ) )
+            oldLines = lines.filter( line => inputs.some(input => line.includes("`, `" + input + "`)") ) ),
+            oldLinesIndexes = oldLines.map( oldLine => lines.findIndex(line => line === oldLine) ),
+            ForgottenObject = oldLinesIndexes.reduce( (acc, index, i) => {
+                acc[index] = oldLines[i]
+                return acc
+            }, {} )
 
+            console.log('newLines', newLines, 'oldLines', oldLines, 'oldLinesIndexes', oldLinesIndexes)
             // forget books from library
             Module.fs.writeFile(path, newLines.join('\n'), err => { if (err) throw err })
+
             // saves forgotten books from library on "remembering" command
-            Module.fs.writeFile('../src/assets/commands/remembering/forgotten.mjs', oldLines.join('\n'), err => { if (err) throw err })
+            // const imp = 'import Book from "../../saveQueue.mjs"'
+            Module.fs.writeFile('../src/assets/commands/remembering/forgotten.mjs', JSON.stringify(ForgottenObject), err => { if (err) throw err })
         })})
     }
 }
