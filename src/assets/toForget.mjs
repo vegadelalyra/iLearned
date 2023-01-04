@@ -66,7 +66,7 @@ export default async function toForget(userInputs, result = false) {
                 acc[index] = oldLines[i]
                 return acc
             }, {})
-            ForgottenObject = `import Book from "../../saveQueue.mjs"\nexport const forgotten = {\n${Object.entries(ForgottenObject).map(([key, value]) => `\t${key}: ${value}`).join(',\n')}\n}`
+            ForgottenObject = `export const forgotten = {\n${Object.entries(ForgottenObject).map(([key, value]) => `\t${key}: ${value}`).join(',\n')}\n}`
 
             // forget books from library
             Module.fs.writeFile(path, newLines.join('\n'), err => { if (err) throw err })
