@@ -34,5 +34,4 @@ export default async function(question = '', write = '', accKeys = false) {
 
     if (guard) return toForget(userInput)
     else userInput.push(...accKeys); toForget(userInput, true)
-    // toForget(userInput)
   }

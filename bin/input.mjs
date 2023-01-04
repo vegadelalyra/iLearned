@@ -6,3 +6,4 @@ Book.enqueue(`[33m{[37m Witless [33m / [37m Stupid or showing no intelligenc
 Book.enqueue(`[33m{[37m Shine (at) -c1 expression [33m / [37m When someone is really skilled at some activity [33m / [37m Lolita shines at fashion and sex uwu [33m}[37m`, `Shine (at) -c1 expression`)
 Book.enqueue(`[33m{[37m heinous ˈheɪ.nəs [33m / [37m very bad and shocking [atroz] [33m / [37m there are really heinous people in the world [33m}[37m`, `heinous ˈheɪ.nəs`)
 Book.enqueue(`[33m{[37m z [33m / [37m z [33m / [37m z [33m}[37m`, `z`)
+Book.enqueue(`[33m{[37m Rad [33m / [37m US slang: very appealing or good [33m / [37m The party was totally rad! [33m}[37m`, `Rad`)

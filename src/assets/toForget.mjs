@@ -47,8 +47,12 @@ export default async function toForget(userInputs, result = false) {
                 new Promise(resolve => setTimeout(
                     () => resolve(Book.delete(chapter)), timer)))
         }
-            
+        // all deletions handled and a last break line to finish the show.    
         Promise.all(deletePromises)
         .then( () => setTimeout( () => console.log('\n'), 300 ))
+        
+        import('./dependencies.mjs')
+        .then(Module => { Module.fs.readFile
+        })
     }
 }
