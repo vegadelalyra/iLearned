@@ -13,6 +13,17 @@ const autocomplete = line => {
   return [completions.filter( key => key.toLowerCase().startsWith(lastWordInput)), lastWordInput]
 }
 
+// overwrite rl.write default text with any new key
+readline.emitKeypressEvents(process.stdin)
+if (process.stdin.isTTY) process.stdin.setRawMode(true)
+
+const rlWrite = (str = 'YEAH') => {
+  rl.write(str)
+  process.stdin.once('keypress', (str, key) => {
+    if (key) rl.write(null, { ctrl: true, name: 'u' })
+    rl.write(key.sequence)
+  })
+}
 // readLine interface
 const rl = readline.createInterface({
     input: process.stdin, 

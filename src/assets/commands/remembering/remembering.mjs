@@ -18,7 +18,10 @@ export default async function() {
     await new Promise( resolve => {
         rl.question(`\x1b[33mAre you trying to remember ${sure}`, resolve)
         rl.write('OOUH YEAH ★彡 ⊂(ಥ﹏ಥ⊂)')
-        rl.write(null, { ctrl: true, name: 'u' })
+        process.stdin.once('keypress', (str, key) => {
+        if (key) rl.write(null, { ctrl: true, name: 'u' })
+        rl.write(key.sequence)
+        })
     })
 
     // Read the file into memory
