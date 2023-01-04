@@ -39,7 +39,6 @@ export default async function toForget(userInputs, result = false) {
     }
     function finished(inputs = chapters) {
         rl.close()
-        console.log(inputs);
         console.log('\x1b[37m\n\nForgetting...\n')
         let timer = 300, scale = 2, deletePromises = []
         for (const chapter of chapters) {
@@ -58,10 +57,10 @@ export default async function toForget(userInputs, result = false) {
             const path = 'input.mjs' 
             Module.fs.readFile(path, 'utf8', (err, data) => {
             if (err) throw err
-            console.log()
+
             const lines = data.split('\n'),
-            newLines = lines.filter( line => !inputs.some(input => line.includes("`, `" + input + "`)") ) ),
-            oldLines = lines.filter( line => inputs.some(input => line.includes("`, `" + input + "`)") ) ),
+            newLines = lines.filter( line => line.includes(inputs[1])),
+            oldLines = lines.filter( line => inputs.includes(input => line.includes("`, `" + input + "`)") ) ),
             oldLinesIndexes = oldLines.map( oldLine => lines.findIndex(line => line === oldLine) ),
             ForgottenObject = oldLinesIndexes.reduce( (acc, index, i) => {
                 acc[index] = oldLines[i]
