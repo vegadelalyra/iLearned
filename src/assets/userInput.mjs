@@ -25,7 +25,13 @@ export default async function(question = '', write = '', accKeys = false) {
       rl.write(write)
     })
       // guard clauses
-    if (accKeys) if (userInput.length > 0) userInput.push(...accKeys)
+    if (accKeys) if (userInput.length > 0) {
+      for (const key of userInput) if (accKeys.includes(key)) {
+        userInput.splice(userInput.indexOf(key), 1) 
+        accKeys.splice(accKeys.indexOf(key), 1) 
+      }; userInput.push(...accKeys)
+    }
+
     if (guard) return toForget(userInput)
     else userInput.push(...accKeys); toForget(userInput, true)
     // toForget(userInput)
