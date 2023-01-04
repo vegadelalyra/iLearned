@@ -38,22 +38,24 @@ rl.on('SIGINT', () => {
 
 
 // user confirmation output
-let confirmation = []
-            
-// show off keys entered by the user on screen    
-const redLine = '='.repeat(process.stdout.columns)
-console.log(`\n\x1b[31m${redLine}`)
-for (const key of chapters) {
+function confirm(data, remem = false, evil = false, color = '\n\x1b[31m') {
+  let confirmation = []
+  
+  // show off keys entered by the user on screen    
+  const colorLine = '='.repeat(process.stdout.columns)
+  console.log(`${color}${colorLine}`)
+  for (const key of data) {
+    evil ? evil.forEach(bad => eval(remem[bad])) : null
     console.log( `\n ${Book.hashMap[key]}` )
-    confirmation.push(key.split(' ')[0])
-} 
-console.log(`\n\x1b[31m${redLine}\n`)
-
-// confirm user's decision
-if (confirmation.length > 1) {
-    const pop = confirmation.pop()
-    confirmation = `${confirmation.join(', ')} \x1b[33mand\x1b[37m ${pop}`
+    remem ? confirmation.push(key) : confirmation.push(key.split(' ')[0])
+  } 
+  console.log(`${color}${colorLine}\n`)
+  
+  // confirm user's decision
+  if (confirmation.length == 1) return confirmation
+  const pop = confirmation.pop()
+  confirmation = `${confirmation.join(', ')} \x1b[33mand\x1b[37m ${pop}`
+  return confirmation
 }
 
-
-export { rl, fs, date_of_birth }
+export { rl, fs, date_of_birth, confirm }

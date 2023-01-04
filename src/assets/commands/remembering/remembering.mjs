@@ -1,12 +1,21 @@
-import { fs, rl } from '../../dependencies.mjs'
-
+import { fs, rl, confirm } from '../../dependencies.mjs'
+import Book from '../../saveQueue.mjs'
 
 export default async function() {
-    // Dinamically import forgotten books.
+    // Dinamically import forgotten books and its keys.
     const forgotten = (await import('./forgotten.mjs')).forgotten
     const keys = Object.keys(forgotten)
-    const curatedLines = i => forgotten[i].substring(1, forgotten[i].length - 1)
 
+    // Modify imported values turning them into Book.hashMap keys
+    const splittedBooks = Object.values(forgotten)
+    .flatMap( book => book.split(' '))
+    .map( (clue, index, arr) => { 
+        if (clue == '\x1B[33m}\x1B[37m`,') return arr[index + 1]
+    }).filter( hash => hash !== undefined )
+    .map(value => value.replace(/[^a-zA-Z0-9]/g, ''))
+
+    confirm(splittedBooks, forgotten, keys, '\n\x1b[32m')
+    process.exit()
     // Question user
     await new Promise( resolve => {
         rl.question(`\x1b[33m>Are you trying to remember, `, resolve)
@@ -20,7 +29,7 @@ export default async function() {
         const lines = data.split('\n')
 
         // Modify the lines as needed
-        keys.forEach(index => lines.splice( index, 0, curatedLines(index) ))
+        keys.forEach(index => lines.splice( index, 0, forgotten[index] ))
 
         // Join the lines back into a single string
         const newData = lines.join('\n')
