@@ -37,7 +37,7 @@ export default async function toForget(userInputs, result = false) {
             const question = `\x1b[33mAre you sure you want to forget \x1b[37m${confirmation}\x1b[33m?\x1b[37m\n`
             await userInput(question, 'YEAH', chapters)
     }
-    function finished() {
+    function finished(inputs = userInput) {
         rl.close()
         console.log('\x1b[37m\n\nForgetting...\n')
         let timer = 300, scale = 2, deletePromises = []
@@ -52,7 +52,15 @@ export default async function toForget(userInputs, result = false) {
         .then( () => setTimeout( () => console.log('\n'), 300 ))
         
         import('./dependencies.mjs')
-        .then(Module => { Module.fs.readFile
-        })
+        .then(Module => {
+            const path = '../../bin/input.mjs' 
+            Module.fs.readFile(path, 'utf8', (err, data) => {
+            if (err) throw err
+            console.log()
+            const lines = data.split('\n')
+            const newLines = lines.filter( line => !inputs.some(input => line.includes("`, `" + input + "`)") ) )
+
+            Module.fs.writeFile(path, newLines.join('\n'), err => { if (err) throw err })
+        })})
     }
 }
