@@ -54,7 +54,7 @@ function confirm(data, remem = false, evil = false, color = '\n\x1b[31m') {
   // confirm user's decision
   if (confirmation.length == 1) return confirmation
   const pop = confirmation.pop()
-  confirmation = `${confirmation.join(', ')} \x1b[33mand\x1b[37m ${pop}`
+  confirmation = `\x1b[37m${confirmation.join(', ')} \x1b[33mand\x1b[37m ${pop}\x1b[33m?\x1b[37m\n`
   return confirmation
 }
 

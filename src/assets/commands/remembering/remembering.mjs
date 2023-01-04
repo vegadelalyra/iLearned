@@ -1,5 +1,4 @@
 import { fs, rl, confirm } from '../../dependencies.mjs'
-import Book from '../../saveQueue.mjs'
 
 export default async function() {
     // Dinamically import forgotten books and its keys.
@@ -14,11 +13,12 @@ export default async function() {
     }).filter( hash => hash !== undefined )
     .map(value => value.replace(/[^a-zA-Z0-9]/g, ''))
 
-    confirm(splittedBooks, forgotten, keys, '\n\x1b[32m')
-    process.exit()
     // Question user
+    const sure = confirm(splittedBooks, forgotten, keys, '\n\x1b[32m')    
     await new Promise( resolve => {
-        rl.question(`\x1b[33m>Are you trying to remember, `, resolve)
+        rl.question(`\x1b[33mAre you trying to remember ${sure}`, resolve)
+        rl.write('OOUH YEAH ★彡 ⊂(ಥ﹏ಥ⊂)')
+        rl.write(null, { ctrl: true, name: 'u' })
     })
 
     // Read the file into memory
