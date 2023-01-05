@@ -38,7 +38,6 @@ export default async function() {
 
         // Write the modified data back to the file
         fs.writeFile('input.mjs', newData, err => { if (err) throw err })
-        console.log('miau');
         rl.close()
     })
 }

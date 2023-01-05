@@ -22,8 +22,8 @@ const rlWrite = (str = 'YEAH') => {
   process.stdin.once('keypress', (str, key) => {
     const regEx = /^[0-9a-zA-Z]*$|^[^0-9a-zA-Z]$/
     if (!regEx.test(key.sequence)) return
-    rl.write('', { ctrl: true, name: 'u' })
-    if (key.name.length > 1 && key.name != undefined) return rl.write('')
+    rl.write(null, { ctrl: true, name: 'u' })
+    if (key.name?.length > 1 && key.name != undefined) return rl.write('')
     rl.write(key.sequence)
   })
 }
@@ -34,6 +34,7 @@ const rl = readline.createInterface({
     output: process.stdout,
     historySize: 0,
     completer: autocomplete,
+    prompt: ''
 }) 
 
 // date of birth of books/knowledges
