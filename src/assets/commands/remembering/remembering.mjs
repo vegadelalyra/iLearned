@@ -24,7 +24,7 @@ export default async function() {
     })
 
     // Read the file into memory
-     fs.readFileSync('input.mjs', 'utf8', (err, data) => {
+    return fs.readFile('input.mjs', 'utf8', (err, data) => {
         if (err) throw err
 
         // Split the file into lines
@@ -37,7 +37,6 @@ export default async function() {
         const newData = lines.join('\n')
 
         // Write the modified data back to the file
-        fs.writeFileSync('input.mjs', newData, err => { if (err) throw err })
+        fs.writeFile('input.mjs', newData, err => { if (err) throw err })
     })
-    process.exit()
 }

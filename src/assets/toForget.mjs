@@ -78,5 +78,8 @@ export default async function toForget(userInputs, result = false) {
                 err => { if (err) throw err 
             })
         })})
+        .then(
+            console.log(`\nHow could you? T-T whatever, you can REMEMBER {keys} as soon as you haven't forgot anything else.`)
+            )
     }
 }
