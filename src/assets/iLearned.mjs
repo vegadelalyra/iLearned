@@ -14,8 +14,8 @@ export default function iLearned(book = []) {
     const args = [input[0] ?? '', input[1] ?? '', input[2] ?? '']
     let [word, def, exp] = args
     book = [word, def, exp]
-
-    if (input.length < 4) console.log("\nSeems like somebody here has learned something new today  ฅ ={^･ｪ･^}= \᳡ \n")
+    const newConceptLine = '~'.repeat(process.stdout.columns)
+    if (input.length < 4) console.log(`\x1b[33m${newConceptLine}\n\x1b[0mSeems like somebody here has learned something new today \x1b[33m ฅ ={^･ｪ･^}= \᳡ \n`)
 
     return terminal_conversation(input, ...book)
 }

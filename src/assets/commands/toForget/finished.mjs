@@ -1,19 +1,24 @@
-export default function finished(inputs) {
-    rl.close()
+export default async function finished(inputs) {
+    // Set up everything
+    // we owe the functionality of add a listener which cancels the delete process if sigINT during Forgetting (or before last console.log)
     console.log('\x1b[37m\n\nForgetting...\n')
     let timer = 300, scale = 2, deletePromises = []
+    const Book = (await import('../../saveQueue.mjs')).default
+
     for (const chapter of inputs) {
         timer = timer * scale, scale = scale * 0.9
-        deletePromises.push(
-            new Promise(resolve => setTimeout(
-                () => resolve(Book.delete(chapter)), timer)))
-    }
-    // all deletions handled and a last break line to finish the show.    
+        deletePromises.push( new Promise(resolve => setTimeout(() => {
+            resolve(Book.delete(chapter))
+        }, timer))
+    )}
+
+    // all deletions handled and a last break line to finish the show.
+    const thisIsTheEndOfEverything = `\x1b[33mCONCEPT${inputs.length > 1 ? 'S ' : ' '}FORGOTTEN \x1b[90mHow could you? (ಥ＿ಥ)\n\x1b[31m    *:・ﾟ✧*:・ﾟ✧(╥﹏╥)ฅ✧*`
     Promise.all(deletePromises)
-    .then( () => setTimeout( () => console.log('\n'), 300 ))
-    
+    .then( () => setTimeout( () => console.log(`\n${thisIsTheEndOfEverything}`), 300 ))
+    .then( () => setTimeout( () => process.exit(), 400 ))
     // deletes chosen keys from memory
-    import('./dependencies.mjs')
+    import('../../dependencies.mjs')
     .then(Module => {
         const path = 'input.mjs' 
         Module.fs.readFile(path, 'utf8', (err, data) => {
@@ -39,5 +44,4 @@ export default function finished(inputs) {
             err => { if (err) throw err 
         })
     })})
-        console.log(`\nHow could you? T-T whatever, you can REMEMBER {keys} as soon as you haven't forgot anything else.`)
 }
