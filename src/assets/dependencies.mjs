@@ -22,7 +22,8 @@ const rlWrite = (str = 'YEAH') => {
   process.stdin.once('keypress', (str, key) => {
     const regEx = /^[0-9a-zA-Z]*$|^[^0-9a-zA-Z]$/
     if (!regEx.test(key.sequence)) return
-    rl.write(null, { ctrl: true, name: 'u' })
+    rl.write('', { ctrl: true, name: 'u' })
+    if (key.name.length > 1 && key.name != undefined) return rl.close()
     rl.write(key.sequence)
   })
 }

@@ -16,12 +16,15 @@ export default async function() {
     // Question user
     const sure = confirm(splittedBooks, forgotten, keys, '\n\x1b[32m')    
     await new Promise( resolve => {
-        rl.question(`\x1b[33mAre you trying to remember ${sure}`, resolve)
-        rlWrite('OOUH YEAH ★彡 ⊂(ಥ﹏ಥ⊂)')
+        rl.question(`\x1b[33mAre you trying to remember ${sure}`, answer => {
+            // if negative, user won't remember
+            if (/^[^yos]/i.test(answer) || answer.length == 0) return process.exit()
+            resolve(answer)
+        }); rlWrite('OOUH YEAH ★彡 ⊂(ಥ﹏ಥ⊂)')
     })
 
     // Read the file into memory
-    return fs.readFile('input.mjs', 'utf8', (err, data) => {
+     fs.readFileSync('input.mjs', 'utf8', (err, data) => {
         if (err) throw err
 
         // Split the file into lines
@@ -34,7 +37,7 @@ export default async function() {
         const newData = lines.join('\n')
 
         // Write the modified data back to the file
-        fs.writeFile('input.mjs', newData, err => { if (err) throw err })
+        fs.writeFileSync('input.mjs', newData, err => { if (err) throw err })
     })
     process.exit()
 }

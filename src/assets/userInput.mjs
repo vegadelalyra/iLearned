@@ -1,7 +1,8 @@
 import Book from "./saveQueue.mjs"
-import { rl } from "./dependencies.mjs"
+import { rl, rlWrite } from "./dependencies.mjs"
 import toForget from "./toForget.mjs"
 
+// custom input streaming TTY interaction for iLearned 
 export default async function(question = '', write = '', accKeys = false) {
   let guard = true
   const userInput = await new Promise(resolve => {
@@ -22,7 +23,7 @@ export default async function(question = '', write = '', accKeys = false) {
       if (!/^[^yos]/i.test(answer) && accKeys && !askedKeys.length && answer) guard = false
     })
       // in any case admon wants to add any default input text.
-      rl.write(write)
+      rlWrite(write)
     })
       // guard clauses
     if (accKeys) if (userInput.length > 0) {
