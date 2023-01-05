@@ -1,8 +1,11 @@
+import { date_of_birth } from "./dependencies.mjs"
+
 class Node {
-    constructor(value) {
+    constructor(value, chapter) {
+      this.chapter = chapter
       this.value = value
       this.next = null
-      this.birth = new Date().getDate()
+      this.birth = date_of_birth()
     }
   }
   
@@ -11,11 +14,12 @@ class Queue {
     this.head = null
     this.tail = null
     this.length = 0
+    this.hashMap = {}
   }
 
   // Add an element to the back of the queue
-  enqueue(word, def, exp) {
-    let newNode = new Node(word, def, exp)
+  enqueue(value, chapter) {
+    let newNode = new Node(value, chapter)
 
     if (this.head === null) {
       this.head = newNode
@@ -24,7 +28,7 @@ class Queue {
       this.tail.next = newNode
       this.tail = newNode
     }
-
+    this.hashMap[chapter] = value 
     this.length++
   }
 
@@ -45,7 +49,7 @@ class Queue {
 
   // Look at the element at the front of the queue without removing it
   peek() {
-    return this.head ? this.head.value : null
+    return this.head ? this.head.birth : null
   }
 
   // Check if the queue is empty
@@ -62,8 +66,33 @@ class Queue {
       values.push(current.value)
       current = current.next
     }
-    values[values.length - 1] = `\x1b[37m\n> ${values.at(-1)}`
-    return values.join('\n')
+    return values.join('\n\n')
+  }
+
+  today() {
+    let current = this.head
+    let values = []
+    
+    while (current) {
+      if (current.birth != date_of_birth()) continue
+      values.push(current.value)
+      current = current.next
+    }
+    return values.join('\n\n')
+  }
+
+  // Delete a given chapter of the book
+  delete(chapter) {
+    if (!this.hashMap[chapter]) return console.error(`\n\x1b[31m>>> ${chapter} is not recorded inside your brain!!! ...Yet (e.ó)/`);
+
+    const current = this.hashMap[chapter]
+
+    if (current === this.head.value) this.head = this.head.next
+    if (current === this.tail) this.tail = null
+
+    delete this.hashMap[chapter]
+    this.length--
+    return console.log(chapter, '\x1b[33mdeleted\x1b[37m')
   }
 }
 

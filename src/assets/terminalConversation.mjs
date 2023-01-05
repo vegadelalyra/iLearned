@@ -1,4 +1,4 @@
-import { fs, rl } from './dependencies.mjs'
+import { fs, rl, rlWrite } from './dependencies.mjs'
 import { trollMessages } from './trollMessages.mjs'
 import chapter from './resultFormat.mjs'
 import Book from './saveQueue.mjs'
@@ -20,10 +20,8 @@ export default async function record(input = '') {
                 trollMessages(a++)
                 arguments[1] = await new Promise( resolve => {
                     // what if we try to modify our input bfhand?
-                    rl.question('\x1b[33m> What concept or word have you learned?\n\x1b[37m ', input => {
-                        resolve(input)
-                    })
-                    rl.write(modifyValues[1][1])
+                    rl.question('\x1b[33m> What CONCEPT or WORD have you learned?\n\x1b[37m ', resolve)
+                    rlWrite(modifyValues[1][1])
                 })
             } while (arguments[1].trim() === '')
             
@@ -32,7 +30,7 @@ export default async function record(input = '') {
                 trollMessages(b++)
                 arguments[2] = await new Promise( resolve => {
                     rl.question(`\n\x1b[33m> Define ${arguments[1].trimEnd()}:\n\x1b[37m`, resolve)
-                    rl.write(modifyValues[1][2])
+                    rlWrite(modifyValues[1][2])
                 })
             } while (arguments[2].trim() === '')
                 
@@ -41,7 +39,7 @@ export default async function record(input = '') {
                 trollMessages(c++)
                 arguments[3] = await new Promise( resolve => {
                     rl.question('\n\x1b[33m> Give me an example [\x1b[34mso we can say you have really got it... e_é\x1b[33m]\n\x1b[37m', resolve )
-                    rl.write(modifyValues[1][3])
+                    rlWrite(modifyValues[1][3])
                 })
             } while (arguments[3].trim() === '')
 
@@ -51,31 +49,29 @@ export default async function record(input = '') {
             console.log('\n\n', aNew, ' '.repeat(69))
 
             // user confirms record.
-            await new Promise ( resolve => {
-                
-                rl.question('\x1b[33mIs this right? \x1b[37m', answer => {
-                    resolve('miau')
-                    // if negative, user will modify his input
-                    if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
-                    
-                    // if positive, user will registry knowledge
-                    console.log('\nLearning...\n')
-                    const h = `Book.enqueue(${ "'" + aNew + "'" })\n`
-                    fs.appendFile( 'input.mjs', h, (err) => { if (err) throw err } )            
-                    Book.enqueue(aNew)
-                    setTimeout( () => {
-                        console.log( `\x1b[33m¡¡¡ New knowledge successfully recorded !!! *:･ﾟ✧＼(^ω^＼)\n\n${Book.show()}\n`, ' '.repeat(200) )
-                    }, 1669 )
-                    rl.close()
-                }); rl.write('Yes')
-            })
-            
-            // saving process handler
+            rl.question('\x1b[33mIs this right? \x1b[37m', answer => {
+                // if user sigint (signal interrupt) ^C, break the line
 
+                // if negative, user will modify his input
+                if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
+                
+                // if positive, user will registry knowledge
+                console.log('\nLearning...\n')
+                
+                // saving process handler
+                const h = `Book.enqueue(${ "`" + aNew + "`" }, ${"`" + arguments[1] + "`"})\n`
+                fs.appendFile( 'input.mjs', h, (err) => { if (err) throw err } )            
+                Book.enqueue('\x1b[37m\n> ' + aNew, arguments[1])
+
+                // showcase result
+                setTimeout( () => {
+                    console.log( `\x1b[33m¡¡¡ New knowledge successfully recorded !!! *:･ﾟ✧＼(^ω^＼)\n\n${Book.show()}\n`, ' '.repeat(200) )
+                }, 1369 )
+            }); rlWrite('Yes')
             break
-            
+
         default:
-            console.error(`\x1b[31merror! iLearned command can only run 3 arguments. You're running ${input.length} :(`)
-            break
+            console.error(`\n\x1b[31mError!\n The iLearned command can only accept 3 arguments.\n It appears that you have provided 4 :(\n\n Please make sure to separate the arguments with\n a forward-slash >\x1b[37m / \x1b[31m< when using the iLearned command.\n`)
+            process.exit()
     }
 }
