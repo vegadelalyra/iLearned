@@ -1,12 +1,12 @@
 import '../../bin/input.mjs'
-import Book from "./saveQueue.mjs";
+import Book from "./saveQueue.mjs"
 
 export default function inMyLife() {
 
     const centerText = (text) => {
-        const terminalWidth = process.stdout.columns;
-        const textWidth = text.length;
-        const paddingWidth = Math.floor((terminalWidth - textWidth) / 2);
+        const terminalWidth = process.stdout.columns
+        const textWidth = text.length
+        const paddingWidth = Math.floor((terminalWidth - textWidth) / 2)
         return '\n' + " ".repeat(paddingWidth) +text + " ".repeat(paddingWidth)
       }
       

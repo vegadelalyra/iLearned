@@ -58,7 +58,7 @@ function confirm(data, remem = false, evil = false, color = '\n\x1b[31m') {
   let confirmation = []
   
   // show off keys entered by the user on screen    
-  const colorLine = '='.repeat(process.stdout.columns)
+  const colorLine = '~'.repeat(process.stdout.columns)
   console.log(`${color}${colorLine}`)
   for (const key of data) {
     evil ? evil.forEach(bad => eval(remem[bad])) : null

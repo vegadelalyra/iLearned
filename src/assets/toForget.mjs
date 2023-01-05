@@ -21,8 +21,9 @@ export default async function toForget(userInputs, result = false) {
             let confirmation = []
             
             // show off keys entered by the user on screen    
+            console.log("\n\n\x1b[37m \t\t\tミ★ DON'T FORGET ME ★彡 ⊂(ಥ﹏ಥ⊂) ")
             const redLine = '='.repeat(process.stdout.columns)
-            console.log(`\n\x1b[31m${redLine}`)
+            console.log(`\x1b[31m${redLine}`)
             for (const key of chapters) {
                 console.log( `\n ${Book.hashMap[key]}` )
                 confirmation.push(key.split(' ')[0])
@@ -34,6 +35,7 @@ export default async function toForget(userInputs, result = false) {
                 const pop = confirmation.pop()
                 confirmation = `${confirmation.join(', ')} \x1b[33mand\x1b[37m ${pop}`
             }
+            console.log(`    \x1b[37m*:・ﾟ✧ ＼（T ^ T ）／ ・ﾟ✧*:`)
             const question = `\x1b[33mAre you sure you want to forget \x1b[37m${confirmation}\x1b[33m?\x1b[37m\n`
             await userInput(question, 'YEAH', chapters)
     }

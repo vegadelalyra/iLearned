@@ -13,7 +13,7 @@ export default async function finished(inputs) {
     )}
 
     // all deletions handled and a last break line to finish the show.
-    const thisIsTheEndOfEverything = `\x1b[33mCONCEPT${inputs.length > 1 ? 'S ' : ' '}FORGOTTEN \x1b[90mHow could you? (ಥ＿ಥ)\n\x1b[31m    *:・ﾟ✧*:・ﾟ✧(╥﹏╥)ฅ✧*`
+    const thisIsTheEndOfEverything = `\x1b[33mCONCEPT${inputs.length > 1 ? 'S ' : ' '}FORGOTTEN \x1b[90mHow could you? (ಥ＿ಥ)\n\n\x1b[31m    *:・ﾟ✧*:・ﾟ✧(╥﹏╥)ฅ✧*`
     Promise.all(deletePromises)
     .then( () => setTimeout( () => console.log(`\n${thisIsTheEndOfEverything}`), 300 ))
     .then( () => setTimeout( () => process.exit(), 400 ))
