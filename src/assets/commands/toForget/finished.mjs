@@ -17,6 +17,7 @@ export default async function finished(inputs) {
     Promise.all(deletePromises)
     .then( () => setTimeout( () => console.log(`\n${thisIsTheEndOfEverything}`), 300 ))
     .then( () => setTimeout( () => process.exit(), 400 ))
+    
     // deletes chosen keys from memory
     import('../../dependencies.mjs')
     .then(Module => {

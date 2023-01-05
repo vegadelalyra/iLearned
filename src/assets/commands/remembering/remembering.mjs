@@ -41,14 +41,15 @@ export default async function() {
         console.log('\nRemembering...\n')
 
         // Display recovered books.
-        let timer = 200, scale = 2, promises = []
-        for (const chapter of splittedBooks) {
-            timer = timer * scale, scale = scale * 0.9
-            promises.push(new Promise( resolve => setTimeout( 
-                () => resolve(console.log(`\x1b[37m${chapter} \x1b[33mrecovered`)), timer)))
-        }
-
-        Promise.all(promises).then( () => console.log( `\n\x1b[32m /\\_/\\\n( ^.^ )\x1b[37m CONCEPTS REMEMBERED\n  \x1b[32m>^<` ))
+        let timer = 200, scale = 2;
+        (async () => {
+            for (const chapter of splittedBooks) {
+              timer = timer * scale, scale = scale * 0.9
+              await new Promise(resolve => setTimeout( 
+                () => resolve(console.log(`\x1b[37m${chapter} \x1b[33mrecovered`)), timer))
+            }
+            setTimeout( () => console.log(`\n\x1b[32m /\\_/\\\n( ^.^ )\x1b[37m CONCEPTS REMEMBERED\n  \x1b[32m>^<`), 300 ) 
+          })()
         rl.close()
     })
 }
