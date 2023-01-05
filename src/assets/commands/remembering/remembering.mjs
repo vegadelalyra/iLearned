@@ -1,4 +1,4 @@
-import { fs, rl, confirm } from '../../dependencies.mjs'
+import { fs, rl, confirm, rlWrite } from '../../dependencies.mjs'
 
 export default async function() {
     // Dinamically import forgotten books and its keys.
@@ -17,11 +17,7 @@ export default async function() {
     const sure = confirm(splittedBooks, forgotten, keys, '\n\x1b[32m')    
     await new Promise( resolve => {
         rl.question(`\x1b[33mAre you trying to remember ${sure}`, resolve)
-        rl.write('OOUH YEAH ★彡 ⊂(ಥ﹏ಥ⊂)')
-        process.stdin.once('keypress', (str, key) => {
-        if (key) rl.write(null, { ctrl: true, name: 'u' })
-        rl.write(key.sequence)
-        })
+        rlWrite('OOUH YEAH ★彡 ⊂(ಥ﹏ಥ⊂)')
     })
 
     // Read the file into memory

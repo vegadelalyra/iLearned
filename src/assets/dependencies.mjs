@@ -20,10 +20,13 @@ if (process.stdin.isTTY) process.stdin.setRawMode(true)
 const rlWrite = (str = 'YEAH') => {
   rl.write(str)
   process.stdin.once('keypress', (str, key) => {
-    if (key) rl.write(null, { ctrl: true, name: 'u' })
+    const regEx = /^[0-9a-zA-Z]*$|^[^0-9a-zA-Z]$/
+    if (!regEx.test(key.sequence)) return
+    rl.write(null, { ctrl: true, name: 'u' })
     rl.write(key.sequence)
   })
 }
+
 // readLine interface
 const rl = readline.createInterface({
     input: process.stdin, 
@@ -69,4 +72,4 @@ function confirm(data, remem = false, evil = false, color = '\n\x1b[31m') {
   return confirmation
 }
 
-export { rl, fs, date_of_birth, confirm }
+export { rl, fs, date_of_birth, confirm, rlWrite }
