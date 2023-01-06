@@ -5,3 +5,7 @@ Book.enqueue(`[33m{[37m Rad [33m / [37m US slang: very appealing or good [3
 Book.enqueue(`[33m{[37m heinous ˈheɪ.nəs [33m / [37m very bad and shocking [atroz] [33m / [37m there are really heinous people in the world [33m}[37m`, `heinous ˈheɪ.nəs`)
 Book.enqueue(`[33m{[37m Shine (at) [33m / [37m EXPRESSION When someone is really skilled at some activity [33m / [37m Lolita shines at fashion design [33m}[37m`, `Shine (at)`)
 Book.enqueue(`[33m{[37m Fix [33m / [37m C2 VERB To keep something or someone in SIGHT [33m / [37m I fixed this nightmares ideas in my mind with a stare of nothingness [33m}[37m`, `Fix`)
+Book.enqueue(`[33m{[37m Side Hustle [33m / [37m A piece of work or a job that you get paid for doing in addition to doing your main job [33m / [37m Promoting parties is my side hustle. I get paid, but not the amount that I want [33m}[37m`, `Side Hustle`)
+Book.enqueue(`[33m{[37m Loose [33m / [37m C2 adj. Not tightly controlled, or not exact [33m / [37m It's a fairly loose adaptation of the novel [33m}[37m`, `Loose`)
+Book.enqueue(`[33m{[37m Unwind [33m / [37m C2 verb To unfasten something that is wrapped around an object [33m / [37m The US Army doctor gently unwounds Metruk's bandage [33m}[37m`, `Unwind`)
+Book.enqueue(`[33m{[37m Further ˈfɜː.ðər [33m / [37m To develop or make progress in something [33m / [37m Money would be a great help in furthering our cause [33m}[37m`, `Further ˈfɜː.ðər`)
