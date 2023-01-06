@@ -8,7 +8,7 @@ import remembering from './assets/commands/remembering/remembering.mjs'
 
 // YARGS: CLI flag (options) and commands arguments
 const argv = yargs(process.argv.slice(2))
-.usage('\nRecord what you learn\niLearned [word] / [definition] / [example]\n/ required^')
+.usage('\nRecord what you learn\niLearned [word] / [definition] / [example]\n/ required')
 .command('$0', 'Record a new concept: word / def / exp', () => {}, iLearned )
 .command('today', 'Show all concepts learned today', today)
 .command('in my life', 'Show all concepts learned in life', inMyLife)
