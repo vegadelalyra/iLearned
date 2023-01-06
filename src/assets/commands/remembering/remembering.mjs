@@ -7,7 +7,7 @@ export default async function() {
     const indexes = Object.keys(forgotten)
 
     // FIRST OF ALL, A HUGE GUARD CLAUSE Xd so REMEMBERING can only be triggered once.
-    if (Array.isArray(forgotten)) return user_already_remembered()
+    if (forgotten instanceof Uint8Array) return user_already_remembered()
 
     function user_already_remembered() {
         // Close user's input
