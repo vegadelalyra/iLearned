@@ -21,7 +21,7 @@ export default async function toForget(userInputs, result = false) {
             let confirmation = []
             
             // show off keys entered by the user on screen    
-            console.log("\n\n\x1b[37m \t\t\tミ★ DON'T FORGET ME ★彡 ⊂(ಥ﹏ಥ⊂) ")
+            console.log("\n\n\x1b[33m \t\t\tミ★\x1b[37mDON'T FORGET ME\x1b[33m★彡 ⊂(ಥ﹏ಥ⊂) ")
             const redLine = '='.repeat(process.stdout.columns)
             console.log(`\x1b[31m${redLine}`)
             for (const key of chapters) {

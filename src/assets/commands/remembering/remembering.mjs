@@ -27,13 +27,13 @@ export default async function() {
 
         // curate souvenir for aprropiate showcase
         souvenir.length == 1 ? null : curate()
-        const curate = () => {
+        function curate() {
             const pop = souvenir.pop()
-            souvenir = `\x1b[37m${souvenir.join(', ')}\x1b[33m and \x1b[37m${pop}`
+            souvenir = `\x1b[33m${souvenir.join(', ')}\x1b[37m and \x1b[33m${pop}`
         }
 
         // console log a pretty kitten speaking the souvenirs (already remembered past-deleted books)
-        const res = `\n\n\x1b[32m /\\_/\\\n( ^.^ )\x1b[37m YOU ALREADY REMEMBERED \x1b[33mhello kitty from guard clause xd ${souvenir}\n  \x1b[32m>^<\n\n` 
+        const res = `\n\x1b[32m /\\_/\\\n( ^.^ )\x1b[37m You already remembered \x1b[33m${souvenir}\n  \x1b[32m>^<\n` 
         return console.log(res)
     }
 
@@ -50,10 +50,15 @@ export default async function() {
     await new Promise( resolve => {
         rl.question(`\x1b[33mAre you trying to remember ${sure}`, answer => {
             // if negative, user won't remember
-            if (/^[^yos]/i.test(answer) || answer.length == 0) return process.exit()
+            if (/^[^yos]/i.test(answer) || answer.length == 0) return user_says_no()
             resolve(answer)
         }); rlWrite('OOUH YEAH ★彡 ⊂(ಥ﹏ಥ⊂)')
     })
+
+    function user_says_no() {
+        console.log('')
+        process.exit()
+    }
     
     // Rewrite the deleted lines on memory
     fs.readFile('input.mjs', 'utf8', (err, data) => {
@@ -72,7 +77,7 @@ export default async function() {
         fs.writeFile('input.mjs', newData, err => { if (err) throw err })
 
         // Save references to remembered items as unsigned 8 bits numbers.
-        const retainedAlready = `export const forgotten = new Uint8Array(${indexes})`
+        const retainedAlready = `export const forgotten = new Uint8Array([${indexes}])`
         fs.writeFile('../src/assets/commands/remembering/forgotten.mjs', retainedAlready, err => {if (err) throw err})
         console.log('\nRemembering...\n')
     })
