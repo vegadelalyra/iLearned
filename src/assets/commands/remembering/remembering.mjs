@@ -1,6 +1,14 @@
 import { fs, rl, confirm, rlWrite } from '../../dependencies.mjs'
 
 export default async function() {
+    // FIRST OF ALL, A HUGE GUARD CLAUSE Xd
+    console.log('miau from remembering first line e.e')
+    try {
+        const data = fs.readFileSync('../src/assets/commands/remembering/forgotten.mjs')
+        if (data.length === 0) return console.log(`\n\x1b[32m /\\_/\\\n( ^.^ )\x1b[37m YOU ALREADY REMEMBERED \x1b[33m${sure()}\n  \x1b[32m>^<`)
+        console.log('The file is not empty.')
+      } catch (err) { console.error(err) }
+
     // Dinamically import forgotten books and its keys.
     const forgotten = (await import('./forgotten.mjs')).forgotten
     const keys = Object.keys(forgotten)
@@ -14,7 +22,7 @@ export default async function() {
     .map(value => value.replace(/[^a-zA-Z0-9]/g, ''))
 
     // Question user
-    const sure = confirm(splittedBooks, forgotten, keys, '\n\x1b[32m')    
+    const sure = confirm(splittedBooks, forgotten, keys, '\n\x1b[32m') 
     await new Promise( resolve => {
         rl.question(`\x1b[33mAre you trying to remember ${sure}`, answer => {
             // if negative, user won't remember
@@ -22,9 +30,9 @@ export default async function() {
             resolve(answer)
         }); rlWrite('OOUH YEAH ★彡 ⊂(ಥ﹏ಥ⊂)')
     })
-
+    
     // Read the file into memory
-    return fs.readFile('input.mjs', 'utf8', (err, data) => {
+    fs.readFile('input.mjs', 'utf8', (err, data) => {
         if (err) throw err
 
         // Split the file into lines
