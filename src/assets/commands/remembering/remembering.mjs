@@ -1,22 +1,21 @@
 import { fs, rl, confirm, rlWrite } from '../../dependencies.mjs'
 
 export default async function() {
-    // FIRST OF ALL, A HUGE GUARD CLAUSE Xd so REMEMBERING can only be triggered once.
-    try {
-        let data = fs.readFileSync('../src/assets/commands/remembering/forgotten.mjs', 'utf8')
-        data = data.split('\n')
-        
-        // Remembering as a one time tool.
-        if (data[0].includes('binary')) {
-            return console.log(`\n\n\x1b[32m /\\_/\\\n( ^.^ )\x1b[37m YOU ALREADY REMEMBERED \x1b[33m${REM()}\n  \x1b[32m>^<\n\n`)
-            }        
-        } catch (err) { console.error(err) }
-
     // Dinamically import forgotten books and its keys.
-    const forgotten = await (await import('./forgotten.mjs')).forgotten
+    const forgotten = (await import('./forgotten.mjs')).forgotten
     const indexes = Object.keys(forgotten)
+    
+    // FIRST OF ALL, A HUGE GUARD CLAUSE Xd so REMEMBERING can only be triggered once.
+    function user_already_remembered () {
+        forgotten
+        any ? indexes = Object.keys(forgotten) : indexes = rememberedLines
+        return console.log(`\n\n\x1b[32m /\\_/\\\n( ^.^ )\x1b[37m YOU ALREADY REMEMBERED \x1b[33m${REM()}\n  \x1b[32m>^<\n\n`)
+    }
 
-    console.log(forgotten);
+    if (!Array.isArray(forgotten)) return user_already_remembered()
+
+
+
     function REM() {
         rl.close()
         return 'hello kitty from REM xd'
