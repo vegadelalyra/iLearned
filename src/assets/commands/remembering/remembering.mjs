@@ -7,16 +7,34 @@ export default async function() {
     const indexes = Object.keys(forgotten)
 
     // FIRST OF ALL, A HUGE GUARD CLAUSE Xd so REMEMBERING can only be triggered once.
-    if (!Array.isArray(forgotten)) return user_already_remembered()
+    if (Array.isArray(forgotten)) return user_already_remembered()
 
     function user_already_remembered() {
+        // Close user's input
         rl.close()
-        
-        for (const index of forgotten) {
-            
+
+        // read inputs file and prepare env to get the remembered keys
+        let data = fs.readFileSync('input.mjs', 'utf8')
+        data = data.split('\n')
+        let souvenir = [] 
+
+        // with 8bit indexes, ingenuity and regEx (xd) we find the remembered keys names
+        forgotten.forEach(binary => {
+            const i = data[binary].split(' ').lastIndexOf('\x1B[33m}\x1B[37m`,') + 1
+            const book = data[binary].split(' ')[i].replace(/[^\w\s]/gi, '')
+            souvenir.push(book)
+        })
+
+        // curate souvenir for aprropiate showcase
+        souvenir.length == 1 ? null : curate()
+        const curate = () => {
+            const pop = souvenir.pop()
+            souvenir = `\x1b[37m${souvenir.join(', ')}\x1b[33m and \x1b[37m${pop}`
         }
 
-        return console.log(`\n\n\x1b[32m /\\_/\\\n( ^.^ )\x1b[37m YOU ALREADY REMEMBERED \x1b[33mhello kitty from guard clause xd ${indexes}\n  \x1b[32m>^<\n\n`)
+        // console log a pretty kitten speaking the souvenirs (already remembered past-deleted books)
+        const res = `\n\n\x1b[32m /\\_/\\\n( ^.^ )\x1b[37m YOU ALREADY REMEMBERED \x1b[33mhello kitty from guard clause xd ${souvenir}\n  \x1b[32m>^<\n\n` 
+        return console.log(res)
     }
 
     // Modify imported values turning them into Book.hashMap keys
