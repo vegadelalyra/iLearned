@@ -1,24 +1,22 @@
 import { fs, rl, confirm, rlWrite } from '../../dependencies.mjs'
 
 export default async function() {
+
     // Dinamically import forgotten books and its keys.
     const forgotten = (await import('./forgotten.mjs')).forgotten
     const indexes = Object.keys(forgotten)
-    
-    // FIRST OF ALL, A HUGE GUARD CLAUSE Xd so REMEMBERING can only be triggered once.
-    function user_already_remembered () {
-        forgotten
-        any ? indexes = Object.keys(forgotten) : indexes = rememberedLines
-        return console.log(`\n\n\x1b[32m /\\_/\\\n( ^.^ )\x1b[37m YOU ALREADY REMEMBERED \x1b[33m${REM()}\n  \x1b[32m>^<\n\n`)
-    }
 
+    // FIRST OF ALL, A HUGE GUARD CLAUSE Xd so REMEMBERING can only be triggered once.
     if (!Array.isArray(forgotten)) return user_already_remembered()
 
-
-
-    function REM() {
+    function user_already_remembered() {
         rl.close()
-        return 'hello kitty from REM xd'
+        
+        for (const index of forgotten) {
+            
+        }
+
+        return console.log(`\n\n\x1b[32m /\\_/\\\n( ^.^ )\x1b[37m YOU ALREADY REMEMBERED \x1b[33mhello kitty from guard clause xd ${indexes}\n  \x1b[32m>^<\n\n`)
     }
 
     // Modify imported values turning them into Book.hashMap keys
@@ -54,6 +52,10 @@ export default async function() {
 
         // Write the modified data back to the file
         fs.writeFile('input.mjs', newData, err => { if (err) throw err })
+
+        // Save references to remembered items as unsigned 8 bits numbers.
+        const retainedAlready = `export const forgotten = new Uint8Array(${indexes})`
+        fs.writeFile('../src/assets/commands/remembering/forgotten.mjs', retainedAlready, err => {if (err) throw err})
         console.log('\nRemembering...\n')
     })
 
