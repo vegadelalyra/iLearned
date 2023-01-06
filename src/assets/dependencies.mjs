@@ -1,6 +1,7 @@
 import Book from './saveQueue.mjs'
 import readline from 'readline'
 import fs from 'fs'
+import C from './dependencies/ANSI_COLORS.mjs'
 
 // amazing per-word autocomplete function
 const autocomplete = line => {
@@ -68,9 +69,9 @@ function confirm(data, remem = false, evil = false, color = '\n\x1b[31m') {
   console.log(`${color}${colorLine}\n`)
   
   // confirm user's decision
-  if (confirmation.length == 1) return `\x1b[37m${confirmation}\x1b[33m?\n\x1b[37m`
+  if (confirmation.length == 1) return `${C.w}${confirmation}\x1b[33m?\n${C.w}`
   const pop = confirmation.pop()
-  confirmation = `\x1b[37m${confirmation.join(', ')} \x1b[33mand\x1b[37m ${pop}\x1b[33m?\x1b[37m\n`
+  confirmation = `${C.w}${confirmation.join(', ')} \x1b[33mand${C.w} ${pop}\x1b[33m?${C.w}\n`
   return confirmation
 }
 

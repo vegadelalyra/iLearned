@@ -1,4 +1,5 @@
 import { fs, rl, confirm, rlWrite } from '../../dependencies.mjs'
+import C from '../../dependencies/ANSI_COLORS.mjs'
 
 export default async function() {
 
@@ -20,7 +21,7 @@ export default async function() {
 
         // with 8bit indexes, ingenuity and regEx (xd) we find the remembered keys names
         forgotten.forEach(binary => {
-            const i = data[binary].split(' ').lastIndexOf('\x1B[33m}\x1B[37m`,') + 1
+            const i = data[binary].split(' ').lastIndexOf('\x1B[33m}\x1b[37m`,') + 1
             const book = data[binary].split(' ')[i].replace(/[^\w\s]/gi, '')
             souvenir.push(book)
         })
@@ -29,11 +30,11 @@ export default async function() {
         souvenir.length == 1 ? null : curate()
         function curate() {
             const pop = souvenir.pop()
-            souvenir = `\x1b[33m${souvenir.join(', ')}\x1b[37m and \x1b[33m${pop}`
+            souvenir = `\x1b[33m${souvenir.join(', ')}${C.w} and \x1b[33m${pop}`
         }
 
         // console log a pretty kitten speaking the souvenirs (already remembered past-deleted books)
-        const res = `\n\x1b[32m /\\_/\\\n( ^.^ )\x1b[37m You already remembered \x1b[33m${souvenir}\n  \x1b[32m>^<\n` 
+        const res = `\n\x1b[32m /\\_/\\\n( ^.^ )${C.w} You already remembered \x1b[33m${souvenir}\n  \x1b[32m>^<\n` 
         return console.log(res)
     }
 
@@ -41,7 +42,7 @@ export default async function() {
     const splittedBooks = Object.values(forgotten)
     .flatMap( book => book.split(' '))
     .map( (clue, index, arr) => { 
-        if (clue == '\x1B[33m}\x1B[37m`,') return arr[index + 1]
+        if (clue == '\x1B[33m}\x1b[37m`,') return arr[index + 1]
     }).filter( hash => hash !== undefined )
     .map(value => value.replace(/[^a-zA-Z0-9]/g, ''))
 
@@ -58,7 +59,7 @@ export default async function() {
     function user_says_no() {
         console.log('')
         process.exit()
-    }
+    }   
     
     // Rewrite the deleted lines on memory
     fs.readFile('input.mjs', 'utf8', (err, data) => {
@@ -88,9 +89,9 @@ export default async function() {
         for (const chapter of splittedBooks) {
           timer = timer * scale, scale = scale * 0.9
           await new Promise(resolve => setTimeout( 
-            () => resolve(console.log(`\x1b[37m${chapter} \x1b[33mrecovered`)), timer))
+            () => resolve(console.log(`${C.w}${chapter} \x1b[33mrecovered`)), timer))
         }
-        setTimeout( () => console.log(`\n\x1b[32m /\\_/\\\n( ^.^ )\x1b[37m CONCEPTS REMEMBERED\n  \x1b[32m>^<`), 300 ) 
+        setTimeout( () => console.log(`\n\x1b[32m /\\_/\\\n( ^.^ )${C.w} CONCEPTS REMEMBERED\n  \x1b[32m>^<`), 300 ) 
       })()
     rl.close()
 }

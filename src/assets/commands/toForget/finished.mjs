@@ -1,7 +1,9 @@
+import C from '../../dependencies/ANSI_COLORS.mjs'
+
 export default async function finished(inputs) {
     // Set up everything
     // we owe the functionality of add a listener which cancels the delete process if sigINT during Forgetting (or before last console.log)
-    console.log('\x1b[37m\n\nForgetting...\n')
+    console.log(C.w + '\n\nForgetting...\n')
     let timer = 300, scale = 2, deletePromises = []
     const Book = (await import('../../saveQueue.mjs')).default
 

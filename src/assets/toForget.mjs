@@ -1,4 +1,5 @@
 import finished from "./commands/toForget/finished.mjs"
+import C from "./dependencies/ANSI_COLORS.mjs"
 import Book from "./saveQueue.mjs"
 import userInput from "./userInput.mjs"
 
@@ -21,7 +22,7 @@ export default async function toForget(userInputs, result = false) {
             let confirmation = []
             
             // show off keys entered by the user on screen    
-            console.log("\n\n\x1b[33m \t\t\tミ★\x1b[37mDON'T FORGET ME\x1b[33m★彡 ⊂(ಥ﹏ಥ⊂) ")
+            console.log(`\n\n\x1b[33m \t\t\tミ★${C.w}DON'T FORGET ME\x1b[33m★彡 ⊂(ಥ﹏ಥ⊂) `)
             const redLine = '='.repeat(process.stdout.columns)
             console.log(`\x1b[31m${redLine}`)
             for (const key of chapters) {
@@ -33,10 +34,10 @@ export default async function toForget(userInputs, result = false) {
             // confirm user's decision
             if (confirmation.length > 1) {
                 const pop = confirmation.pop()
-                confirmation = `${confirmation.join(', ')} \x1b[33mand\x1b[37m ${pop}`
+                confirmation = `${confirmation.join(', ')} \x1b[33mand${C.w} ${pop}`
             }
-            console.log(`    \x1b[37m*:・ﾟ✧ ＼（T ^ T ）／ ・ﾟ✧*:`)
-            const question = `\x1b[33mAre you sure you want to forget \x1b[37m${confirmation}\x1b[33m?\x1b[37m\n`
+            console.log(`    ${C.w}*:・ﾟ✧ ＼（T ^ T ）／ ・ﾟ✧*:`)
+            const question = `\x1b[33mAre you sure you want to forget ${C.w}${confirmation}\x1b[33m?${C.w}\n`
             await userInput(question, 'YEAH', chapters)
     }
 }

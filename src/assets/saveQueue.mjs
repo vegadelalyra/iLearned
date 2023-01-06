@@ -1,4 +1,5 @@
 import { date_of_birth } from "./dependencies.mjs"
+import C from "./dependencies/ANSI_COLORS.mjs"
 
 class Node {
     constructor(value, chapter) {
@@ -92,7 +93,7 @@ class Queue {
 
     delete this.hashMap[chapter]
     this.length--
-    return console.log(chapter, '\x1b[33mdeleted\x1b[37m')
+    return console.log(chapter, `\x1b[33mdeleted${C.w}`)
   }
 }
 

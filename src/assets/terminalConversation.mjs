@@ -3,6 +3,7 @@ import { trollMessages } from './trollMessages.mjs'
 import chapter from './resultFormat.mjs'
 import Book from './saveQueue.mjs'
 import '../../bin/input.mjs'
+import C from './dependencies/ANSI_COLORS.mjs'
 
 export default async function record(input = '') { 
     
@@ -20,7 +21,7 @@ export default async function record(input = '') {
                 trollMessages(a++)
                 arguments[1] = await new Promise( resolve => {
                     // what if we try to modify our input bfhand?
-                    rl.question('\x1b[33m> What CONCEPT or WORD have you learned?\n\x1b[37m', resolve)
+                    rl.question(`\x1b[33m> What CONCEPT or WORD have you learned?\n${C.w}`, resolve)
                     rlWrite(modifyValues[1][1])
                 })
             } while (arguments[1].trim() === '')
@@ -29,7 +30,7 @@ export default async function record(input = '') {
             do {
                 trollMessages(b++)
                 arguments[2] = await new Promise( resolve => {
-                    rl.question(`\n\x1b[33m> Define ${arguments[1].trimEnd()}:\n\x1b[37m`, resolve)
+                    rl.question(`\n\x1b[33m> Define ${arguments[1].trimEnd()}:\n${C.w}`, resolve)
                     rlWrite(modifyValues[1][2])
                 })
             } while (arguments[2].trim() === '')
@@ -38,7 +39,7 @@ export default async function record(input = '') {
             do {
                 trollMessages(c++)
                 arguments[3] = await new Promise( resolve => {
-                    rl.question('\n\x1b[33m> Give me an example [\x1b[34mso we can say you have really got it... e_é\x1b[33m]\n\x1b[37m', resolve )
+                    rl.question(`\n\x1b[33m> Give me an example [\x1b[34mso we can say you have really got it... e_é\x1b[33m]\n${C.w}`, resolve )
                     rlWrite(modifyValues[1][3])
                 })
             } while (arguments[3].trim() === '')
@@ -49,7 +50,7 @@ export default async function record(input = '') {
             console.log('\n', aNew, '\n')
 
             // user confirms record.
-            rl.question('\x1b[33mIs this right? \x1b[37m', answer => {
+            rl.question(`\x1b[33mIs this right? ${C.w}`, answer => {
                 // if user sigint (signal interrupt) ^C, break the line
 
                 // if negative, user will modify his input
@@ -83,7 +84,7 @@ export default async function record(input = '') {
             break
 
         default:
-            console.error(`\n\x1b[31mError!\n The iLearned command can only accept 3 arguments.\n It appears that you have provided 4 :(\n\n Please make sure to separate the arguments with\n a forward-slash >\x1b[37m / \x1b[31m< when using the iLearned command.\n`)
+            console.error(`\n\x1b[31mError!\n The iLearned command can only accept 3 arguments.\n It appears that you have provided 4 :(\n\n Please make sure to separate the arguments with\n a forward-slash >${C.w} / \x1b[31m< when using the iLearned command.\n`)
             process.exit()
     }
 }
