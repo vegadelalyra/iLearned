@@ -26,7 +26,6 @@
   },
   "preferGlobal": true,
   "dependencies": {
-    "axios": "^1.2.2",
     "cheerio": "^1.0.0-rc.12",
     "ilearned": "^1.0.0",
     "json2csv": "^5.0.7",
