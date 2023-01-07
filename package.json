@@ -5,7 +5,8 @@
   "main": "global.js",
   "type": "module",
   "scripts": {
-    "test": "node bin/global.js"
+    "test": "node bin/global.js",
+    "scrape": "node src/assets/commands/remembering/webScraping.js"
   },
   "repository": {
     "type": "git",
