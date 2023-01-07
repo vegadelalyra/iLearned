@@ -1,9 +1,9 @@
-import { fs, rl, rlWrite } from '../../dependencies.mjs'
-import { trollMessages } from './trollMessages.mjs'
-import chapter from './resultFormat.mjs'
-import Book from '../../saveQueue.mjs'
-import '../../../../bin/input.mjs'
-import C from '../../dependencies/ANSI_COLORS.mjs'
+import { fs, rl, rlWrite } from '../../dependencies.js'
+import { trollMessages } from './trollMessages.js'
+import chapter from './resultFormat.js'
+import Book from '../../saveQueue.js'
+import '../../../../bin/input.js'
+import C from '../../dependencies/ANSI_COLORS.js'
 
 export default async function record(input = '') { 
     
@@ -61,18 +61,18 @@ export default async function record(input = '') {
                 
                 // saving process handler
                 const h = `Book.enqueue(${ "`" + aNew + "`" }, ${"`" + arguments[1] + "`"})\n`
-                fs.appendFile( 'input.mjs', h, (err) => { if (err) throw err } )            
+                fs.appendFile( 'input.js', h, (err) => { if (err) throw err } )            
                 Book.enqueue('\x1b[37m\n> ' + aNew, arguments[1])
 
                 // huge guard clause in case it's the first user input 
-                fs.readFile( 'input.mjs', 'utf8', (err, data) => {
+                fs.readFile( 'input.js', 'utf8', (err, data) => {
                     if (err) throw err
                 
                     const lines = data.split('\n')
                     if (lines.length > 2) return
 
-                    const newData = `import Book from "../src/assets/saveQueue.mjs"\n${h}`
-                    fs.writeFile('input.mjs', newData, err => { if (err) throw err})
+                    const newData = `import Book from "../src/assets/saveQueue.js"\n${h}`
+                    fs.writeFile('input.js', newData, err => { if (err) throw err})
                 })
 
                 // showcase result

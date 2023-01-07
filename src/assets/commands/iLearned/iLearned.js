@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import yargs from 'yargs'
-import terminal_conversation from './terminalConversation.mjs'
+import terminal_conversation from './terminalConversation.js'
 
 // my default option 
 export default function iLearned(book = []) {

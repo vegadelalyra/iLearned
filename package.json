@@ -2,10 +2,10 @@
   "name": "ilearned",
   "version": "1.0.0",
   "description": "Save brand new learned vocabulary from any language: <br> All within console's command reach: iLearned",
-  "main": "global.mjs",
+  "main": "global.js",
   "type": "module",
   "scripts": {
-    "test": "node bin/global.mjs"
+    "test": "node bin/global.js"
   },
   "repository": {
     "type": "git",

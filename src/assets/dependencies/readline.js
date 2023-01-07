@@ -1,4 +1,4 @@
-import Book from '../saveQueue.mjs'
+import Book from '../saveQueue.js'
 import readline from 'readline'
 
 // overwrite rl.write default text with any new key

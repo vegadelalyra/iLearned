@@ -1,7 +1,7 @@
-import finished from "./finished.mjs"
-import C from "../../dependencies/ANSI_COLORS.mjs"
-import Book from "../../saveQueue.mjs"
-import userInput from "./userInput.mjs"
+import finished from "./finished.js"
+import C from "../../dependencies/ANSI_COLORS.js"
+import Book from "../../saveQueue.js"
+import userInput from "./userInput.js"
 
 export default async function toForget(userInputs, result = false) {
     // declare user's input

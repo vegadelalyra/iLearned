@@ -1,5 +1,5 @@
-import Book from "../saveQueue.mjs"
-import C from "./ANSI_COLORS.mjs"
+import Book from "../saveQueue.js"
+import C from "./ANSI_COLORS.js"
 
 // user confirmation output
 export default function confirm(data, remem = false, evil = false, color = '\n\x1b[31m') {
