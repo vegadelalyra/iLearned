@@ -2,17 +2,22 @@ import axios from 'axios'
 import cheerio from 'cheerio'
 
 const URL = "https://www.brainyquote.com/topics/remember-quotes"
+const baseURL = "https://www.brainyquote.com"
 
-async function getQuotes() {
+async function getQuotes(URL) {
     try {
-        const res = await axios.get(URL)
-        const $ = cheerio.load(res.data)
-        const quote = $(".oncl_q:nth-child(1) div")
+        const res = await fetch(URL)
+        const html = await res.text()
+        const $ = cheerio.load(html)
+        const quotes = $(".oncl_q:nth-child(1) div")
 
-        quote.each(function() {
-            let miau = $(this).text()
-            if (miau.length < 138) console.log(miau, miau.length)
+        quotes.each(function() {
+            let quote = $(this).text()
+            if (quote.length < 138) console.log(quote, quote.length)
         })
 
+        const onNext = $(".page-item:nth-child(8) .page-link").attr("href")
+        if ($(".disabled").text() !== '..Next') return getQuotes(baseURL + onNext)     
+
     } catch (err) { console.error(err) }
-}; getQuotes()
+}; getQuotes(URL)
