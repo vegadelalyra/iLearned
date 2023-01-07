@@ -1,7 +1,7 @@
 import { fs, rl, confirm, rlWrite } from '../../dependencies.mjs'
 import C from '../../dependencies/ANSI_COLORS.mjs'
 
-export default async function() {
+export default async function remembering() {
 
     // Dinamically import forgotten books and its keys.
     const forgotten = (await import('./forgotten.mjs')).forgotten
