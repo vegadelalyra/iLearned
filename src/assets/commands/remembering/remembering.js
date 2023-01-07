@@ -34,7 +34,7 @@ export default async function remembering() {
         }
 
         // console log a pretty kitten speaking the souvenirs (already remembered past-deleted books)
-        const res = `\n\x1b[32m /\\_/\\\n( ^.^ )${C.w} You already remembered \x1b[33m${souvenir}\n  \x1b[32m>^<\n` 
+        const res = `\n\x1b[32m /\\_/\\\n( ^.^ )${C.w} You already remembered \x1b[33m${souvenir}\n  \x1b[32m>^<` 
         return console.log(res)
     }
 
