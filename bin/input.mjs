@@ -9,3 +9,4 @@ Book.enqueue(`[33m{[37m Side Hustle [33m / [37m A piece of work or a job tha
 Book.enqueue(`[33m{[37m Loose [33m / [37m C2 adj. Not tightly controlled, or not exact [33m / [37m It's a fairly loose adaptation of the novel [33m}[37m`, `Loose`)
 Book.enqueue(`[33m{[37m Unwind [33m / [37m C2 verb To unfasten something that is wrapped around an object [33m / [37m The US Army doctor gently unwounds Metruk's bandage [33m}[37m`, `Unwind`)
 Book.enqueue(`[33m{[37m Further ˈfɜː.ðər [33m / [37m To develop or make progress in something [33m / [37m Money would be a great help in furthering our cause [33m}[37m`, `Further ˈfɜː.ðər`)
+Book.enqueue(`[33m{[37m Pursuit pɚˈsuːt [33m / [37m The act of trying to achieve a plan, activity, or situation, usually over a long period of time [33m / [37m My way of living is the pursuit of transforming truths [33m}[37m`, `Pursuit pɚˈsuːt`)
