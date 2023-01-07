@@ -1,7 +1,7 @@
 import axios from 'axios'
 import cheerio from 'cheerio'
 
-const URL = "https://books.toscrape.com/catalogue/category/books/mystery_3/index.html"
+const URL = "https://www.brainyquote.com/topics/remember-quotes"
 
 async function getQuotes() {
     try {
