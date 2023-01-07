@@ -1,3 +1,6 @@
+import Book from "../saveQueue.mjs"
+import C from "./ANSI_COLORS.mjs"
+
 // user confirmation output
 export default function confirm(data, remem = false, evil = false, color = '\n\x1b[31m') {
     let confirmation = []
