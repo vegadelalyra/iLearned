@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Save brand new learned vocabulary from any language: <br> All within console's command reach: iLearned",
   "main": "global.mjs",
+  "type": "module",
   "scripts": {
     "test": "node bin/global.mjs"
   },
