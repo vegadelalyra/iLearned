@@ -1,7 +1,10 @@
 import Book from './saveQueue.mjs'
 import readline from 'readline'
 import fs from 'fs'
+
+// Import dependencies to export them
 import C from './dependencies/ANSI_COLORS.mjs'
+import centerText from './dependencies/centerText.mjs'
 
 // amazing per-word autocomplete function
 const autocomplete = line => {
@@ -75,12 +78,4 @@ function confirm(data, remem = false, evil = false, color = '\n\x1b[31m') {
   return confirmation
 }
 
-// centerText
-const centerText = (text) => {
-  const terminalWidth = process.stdout.columns
-  const textWidth = text.length
-  const paddingWidth = Math.floor((terminalWidth - textWidth) / 2)
-  return '\n' + " ".repeat(paddingWidth) +text + " ".repeat(paddingWidth)
-}
-
-export { rl, fs, date_of_birth, confirm, rlWrite, centerText }
+export { rl, fs, date_of_birth, confirm, rlWrite, centerText, C }
