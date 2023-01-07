@@ -1,9 +1,9 @@
-import { fs, rl, rlWrite } from './dependencies.mjs'
+import { fs, rl, rlWrite } from '../../dependencies.mjs'
 import { trollMessages } from './trollMessages.mjs'
 import chapter from './resultFormat.mjs'
-import Book from './saveQueue.mjs'
-import '../../bin/input.mjs'
-import C from './dependencies/ANSI_COLORS.mjs'
+import Book from '../../saveQueue.mjs'
+import '../../../../bin/input.mjs'
+import C from '../../dependencies/ANSI_COLORS.mjs'
 
 export default async function record(input = '') { 
     

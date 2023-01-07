@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import yargs from 'yargs'
-import iLearned from './assets/iLearned.mjs'
-import today from './assets/today.mjs'
-import inMyLife from './assets/inMyLife.mjs'
-import toForget from './assets/toForget.mjs'
+import iLearned from './assets/commands/iLearned/iLearned.mjs'
+import today from './assets/commands/today/today.mjs'
+import inMyLife from './assets/commands/inMyLife/inMyLife.mjs'
+import toForget from './assets/commands/toForget/toForget.mjs'
 import remembering from './assets/commands/remembering/remembering.mjs'
 
 // YARGS: CLI flag (options) and commands arguments

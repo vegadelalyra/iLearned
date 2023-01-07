@@ -1,5 +1,5 @@
-import Book from "./saveQueue.mjs"
-import { rl, rlWrite } from "./dependencies.mjs"
+import Book from "../../saveQueue.mjs"
+import { rl, rlWrite } from "../../dependencies.mjs"
 import toForget from "./toForget.mjs"
 
 // custom input streaming TTY interaction for iLearned 
