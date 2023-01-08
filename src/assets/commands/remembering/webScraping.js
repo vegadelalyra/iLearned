@@ -14,12 +14,12 @@ async function getQuotes(URL, words) {
             if (quote.split(' ').length < words) epistle.push(quote) 
         })
 
-        let button = nth => $(`.page-item:nth-child(${nth}) .page-link`), nextPage
-
+        let button = nth => $(`.page-item:nth-child(${nth}) .page-link`)
+        let curated = a => button(a).attr('href'), nextPage
         console.log(URL);
         button(8).text() === 'Next' 
-        ? nextPage = button(8).attr('href')
-        : nextPage = button(9).attr('href')
+        ? nextPage = curated(8)
+        : nextPage = curated(9)
 
         if ($(".disabled").text() !== '..Next') return getQuotes(baseURL + nextPage)     
         
