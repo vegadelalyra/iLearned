@@ -11,13 +11,15 @@ async function getQuotes(URL, words) {
 
     // CSS-selector and filter of the desired HTML element
     const quotes = $(".oncl_q:nth-child(1) div")
-    quotes.each(function() { 
-        const quote = $(this).text()
-        if (quote.split(' ').length < words) epistle.push(quote) 
+    quotes.each(function() {   
+        const quote = $(this).text() 
+        if (quote.split(' ').length < words) {
+            console.log(quote, quote.split(' ').length);
+        } 
     })
 
     // pagination (code will scrape until the last page)
-    let button = nth => $(`. (page-item:nth-child(${nth}) .page-link`)
+    let button = nth => $(`.page-item:nth-child(${nth}) .page-link`)
     let curated = a => button(a).attr('href'), nextPage
 
     button(8).text() === 'Next' 
