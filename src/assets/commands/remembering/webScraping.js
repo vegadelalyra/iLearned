@@ -1,32 +1,33 @@
 import cheerio from 'cheerio'
 
 const URL = "https://www.brainyquote.com/topics/remember-quotes"
-const baseURL = "https://www.brainyquote.com"
-const epistle = []
+const baseURL = "https://www.brainyquote.com", epistle = []
 
-async function getQuotes(URL) {
-    try {
+async function getQuotes(URL, words) {
         const res = await fetch(URL)
         const html = await res.text()
         const $ = cheerio.load(html)
 
         const quotes = $(".oncl_q:nth-child(1) div")
-
-        quotes.each(function(n = 0) {
-            let quote = $(this).text()
-            if (quote.length < 138) epistle.push(quote)
-            console.log(epistle, n++)
+        quotes.each(function() { 
+            const quote = $(this).text()
+            if (quote.split(' ').length < words) epistle.push(quote) 
         })
 
-        const onNext = $(".page-item:nth-child(8) .page-link").attr("href")
-        if ($(".disabled").text() !== '..Next') return getQuotes(baseURL + onNext)     
+        let button = nth => $(`.page-item:nth-child(${nth}) .page-link`), nextPage
 
-    } catch (err) { 
-        console.error(err) 
-    } finally { 
+        console.log(URL);
+        button(8).text() === 'Next' 
+        ? nextPage = button(8).attr('href')
+        : nextPage = button(9).attr('href')
 
-        const miau = epistle[Math.floor(Math.random() * epistle.length)]
-        console.log(miau)
+        if ($(".disabled").text() !== '..Next') return getQuotes(baseURL + nextPage)     
+        
+        // console.log([].push(...epistle));
 
-    }
-}; getQuotes(URL)
+        // const miau = epistle[Math.floor(Math.random() * epistle.length)]
+        // console.log(miau.length);
+        // return miau
+
+}; const phrase = await getQuotes(URL, 40)
+// console.log(phrase)
