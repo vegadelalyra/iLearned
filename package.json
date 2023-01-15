@@ -1,10 +1,12 @@
 {
   "name": "ilearned",
   "version": "1.0.0",
-  "description": "Save brand new learned vocabulary from any language: <br> All within console's command reach: iLearned",
-  "main": "global.mjs",
+  "description": "Save brand new learned vocabulary from any language: \n All within console's command reach: iLearned",
+  "main": "global.js",
+  "type": "module",
   "scripts": {
-    "test": "node bin/global.mjs"
+    "test": "node bin/global.js",
+    "scrape": "node test.js"
   },
   "repository": {
     "type": "git",
@@ -24,9 +26,8 @@
   },
   "preferGlobal": true,
   "dependencies": {
-    "ilearned": "^1.0.0",
-    "prompt-sync": "^4.2.0",
-    "prompt-sync-history": "^1.0.1",
+    "axios": "^1.2.2",
+    "cheerio": "^1.0.0-rc.12",
     "yargs": "^17.6.2"
   }
 }

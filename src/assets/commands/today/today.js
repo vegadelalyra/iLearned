@@ -1,7 +1,7 @@
-import '../../bin/input.mjs'
-import { centerText } from './dependencies.mjs';
-import C from './dependencies/ANSI_COLORS.mjs';
-import Book from "./saveQueue.mjs";
+import '../../../../bin/input.js'
+import { centerText } from '../../dependencies.js';
+import C from '../../dependencies/ANSI_COLORS.js';
+import Book from "../../saveQueue.js";
 
 export default function today() {
     const newConceptLine = '\x1b[34m' + '~'.repeat(process.stdout.columns)

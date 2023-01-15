@@ -1,11 +1,11 @@
-import C from '../../dependencies/ANSI_COLORS.mjs'
+import C from '../../dependencies/ANSI_COLORS.js'
 
 export default async function finished(inputs) {
     // Set up everything
     // we owe the functionality of add a listener which cancels the delete process if sigINT during Forgetting (or before last console.log)
     console.log(C.w + '\n\nForgetting...\n')
     let timer = 300, scale = 2, deletePromises = []
-    const Book = (await import('../../saveQueue.mjs')).default
+    const Book = (await import('../../saveQueue.js')).default
 
     for (const chapter of inputs) {
         timer = timer * scale, scale = scale * 0.9
@@ -21,9 +21,9 @@ export default async function finished(inputs) {
     .then( () => setTimeout( () => process.exit(), 400 ))
     
     // deletes chosen keys from memory
-    import('../../dependencies.mjs')
+    import('../../dependencies.js')
     .then(Module => {
-        const path = 'input.mjs' 
+        const path = 'input.js' 
         Module.fs.readFile(path, 'utf8', (err, data) => {
         if (err) throw err
 
@@ -42,7 +42,7 @@ export default async function finished(inputs) {
 
         // saves forgotten books from library on "remembering" command
         Module.fs.writeFile(
-            '../src/assets/commands/remembering/forgotten.mjs', 
+            '../src/assets/commands/remembering/forgotten.js', 
             ForgottenObject, 
             err => { if (err) throw err 
         })

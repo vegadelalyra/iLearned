@@ -1,6 +1,6 @@
-import Book from "./saveQueue.mjs"
-import { rl, rlWrite } from "./dependencies.mjs"
-import toForget from "./toForget.mjs"
+import Book from "../../saveQueue.js"
+import { rl, rlWrite } from "../../dependencies.js"
+import toForget from "./toForget.js"
 
 // custom input streaming TTY interaction for iLearned 
 export default async function(question = '', write = '', accKeys = false) {
