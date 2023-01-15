@@ -30,7 +30,7 @@ export default async function record(input = '') {
                 trollMessages(b++)
                 arguments[2] = await new Promise( resolve => {
                     rl.question(`\n\x1b[33m> Define ${arguments[1].trimEnd()}:\n${C.w}`, resolve)
-                    rlWrite(cambridge || modifyValues[1][2])
+                    rlWrite(modifyValues[1][2])
                 })
             } while (arguments[2].trim() === '')
                 

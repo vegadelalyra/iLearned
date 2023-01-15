@@ -20,9 +20,12 @@ export default function iLearned(book = []) {
     // Prompt for users when running default
     const newConceptLine = '~'.repeat(process.stdout.columns)
     const newBookMsg = 'Seems like somebody here has learned something new today'
-    
     if (input.length < 4) console
-    .log(`\n\x1b[33m${newConceptLine}\n\n\x1b[0m${newBookMsg} \x1b[33m ฅ ={^･ｪ･^}= \᳡ \n`)
+    .log(`\x1b[33m${newConceptLine}\n\n\x1b[0m${newBookMsg} \x1b[33m ฅ ={^･ｪ･^}= \᳡ \n`)
+
+    // Web scraping from Cambridge
+    let cambridge
+    if (/^[a-zA-Z]+$/i.test(word)) console.log(word, 'is a solely word :D') 
 
     return terminal_conversation(input, ...book)
 }
