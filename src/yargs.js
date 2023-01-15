@@ -16,11 +16,12 @@ const argv = yargs(process.argv.slice(2))
 .command('in my life', 'Show all concepts learned in life', inMyLife)
 .command('to forget', 'Delete concepts [pass its names]', toForget)
 .command('remembering', 'Recovers last deleted concept/s', remembering)
-.help()
+.alias('h', 'help')
 .example(`\niLearned warm wɔːrm / to become less cold / learn warms your soul`)
 .example(`\niLearned scrape skreɪp \n/ to succeed in getting something`)
 .example(`/ iLearned scraping things`)
 .example(` `)
+.help()
 .argv
 
 export { argv }

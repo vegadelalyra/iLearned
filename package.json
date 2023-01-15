@@ -1,7 +1,7 @@
 {
   "name": "ilearned",
   "version": "1.0.0",
-  "description": "Save brand new learned vocabulary from any language: <br> All within console's command reach: iLearned",
+  "description": "Save brand new learned vocabulary from any language: \n All within console's command reach: iLearned",
   "main": "global.js",
   "type": "module",
   "scripts": {
@@ -28,7 +28,6 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
     "ilearned": "^1.0.0",
-    "json2csv": "^5.0.7",
     "yargs": "^17.6.2"
   }
 }

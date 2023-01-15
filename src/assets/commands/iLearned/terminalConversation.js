@@ -20,7 +20,6 @@ export default async function record(input = '') {
             do {
                 trollMessages(a++)
                 arguments[1] = await new Promise( resolve => {
-                    // what if we try to modify our input bfhand?
                     rl.question(`\x1b[33m> What CONCEPT or WORD have you learned?\n${C.w}`, resolve)
                     rlWrite(modifyValues[1][1])
                 })
@@ -31,7 +30,7 @@ export default async function record(input = '') {
                 trollMessages(b++)
                 arguments[2] = await new Promise( resolve => {
                     rl.question(`\n\x1b[33m> Define ${arguments[1].trimEnd()}:\n${C.w}`, resolve)
-                    rlWrite(modifyValues[1][2])
+                    rlWrite(cambridge || modifyValues[1][2])
                 })
             } while (arguments[2].trim() === '')
                 
