@@ -24,20 +24,22 @@ export default async function iLearned(book = []) {
     .log(`\x1b[33m${newConceptLine}\n\n\x1b[0m${newBookMsg} \x1b[33m ฅ ={^･ｪ･^}= \᳡ \n`)
 
     // Web scraping word from Cambridge dictionary
-    let userInput = word.split(' ').length == 1 ? word : word.replace(' ', '-'), cambridge
-    if (/^[a-zA-Z-]+$/.test(userInput)) cambridge = await webScrape(userInput, true)
+    let userInput = word.split(' ').length == 1 
+    ? word : word.replace(' ', '-'), cambridge
+    if (/^[a-zA-Z-]+$/.test(userInput) && input.length < 3
+    ) cambridge = await webScrape(userInput, true)
 
     // if available in Cambridge, fill book, else, use user's book
     if (!cambridge) return terminal_conversation(input, ...book)
    
     // An english word! filling book for user
-    word = word + ' ' + cambridge.IPA    // word 
+    if (input.length < 3) word = word + ' ' + cambridge.IPA    // word 
     if (!exp) exp = cambridge.exp        // exp
     book = [word, def, exp]
     if (def) return terminal_conversation(input, ...book)
     const lvlpos = !!cambridge.lvl 
-    ? `${cambridge.lvl} ${cambridge.PoS} ` 
-    : `${cambridge.PoS} `
+    ? `${cambridge.lvl} ${cambridge.PoS}, ` 
+    : `${cambridge.PoS}, `
     def = lvlpos + cambridge.def        // def
     book = [word, def, exp]
     input.push(book[1], book[2])
