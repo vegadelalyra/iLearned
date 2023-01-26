@@ -14,8 +14,8 @@ export default async function iLearned(book = []) {
     .map(item => item.trim()) ?? []
 
     // User's input arranged in book schema: word / def / exp
-    const args = [input[0] ?? '', input[1] ?? '', input[2] ?? '']
-    let [word, def, exp] = args
+    const args = [input[0], input[1], input[2]]
+    let {word = '', def = '', exp = ''} = args
     
     // Prompt for users when running default
     const newConceptLine = '~'.repeat(process.stdout.columns)
