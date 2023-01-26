@@ -5,8 +5,7 @@
   "main": "global.js",
   "type": "module",
   "scripts": {
-    "test": "node bin/global.js",
-    "scrape": "node test.js"
+    "test": "node bin/global.js"
   },
   "repository": {
     "type": "git",
