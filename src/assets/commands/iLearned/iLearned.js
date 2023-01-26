@@ -16,7 +16,6 @@ export default async function iLearned(book = []) {
     // User's input arranged in book schema: word / def / exp
     const args = [input[0] ?? '', input[1] ?? '', input[2] ?? '']
     let [word, def, exp] = args
-    book = [word, def, exp]
     
     // Prompt for users when running default
     const newConceptLine = '~'.repeat(process.stdout.columns)
@@ -25,9 +24,22 @@ export default async function iLearned(book = []) {
     .log(`\x1b[33m${newConceptLine}\n\n\x1b[0m${newBookMsg} \x1b[33m ฅ ={^･ｪ･^}= \᳡ \n`)
 
     // Web scraping word from Cambridge dictionary
-    let userInput = word.split(' ').length == 1 ? word : word.replace(' ', '-')
-    if (/^[a-zA-Z-]+$/.test(userInput)) await webScrape(userInput)
+    let userInput = word.split(' ').length == 1 ? word : word.replace(' ', '-'), cambridge
+    if (/^[a-zA-Z-]+$/.test(userInput)) cambridge = await webScrape(userInput, true)
+    if (!cambridge)
+    word = word + ' ' + cambridge.IPA
+    
 
     // LET'S START THE PARTY !!!
+    book = [word, def, exp]
     return terminal_conversation(input, ...book)
 }
+
+let arg = [3, 2, 3]
+let miau = {a:'', b:'', c:''}
+miau = arg
+miau.a = 1
+// let book = [a, b, c]
+// a = 1
+// book = [a, b, c]
+console.log(miau) // [ 3, 2, 3 ]

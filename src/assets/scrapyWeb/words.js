@@ -8,19 +8,17 @@ export default async function webScrape(userInput, test = false) {
     const url = `https://dictionary.cambridge.org/dictionary/english/${userInput}`
     const res = await axios.get(url), $ = load(res.data)
 
+    // GUARD CLAUSE: Does thee word exists in the Cambridge dictionary?
+    let wrd = $('.dpos-h_hw:first')  // word, idiom or phrase name
+    if (wrd.length == 0) return // not an english word, do nothing.
+    wrd = wrd.text() // actually an english word! retrieve data.
+
     // retrieve all the desired data with high-level selectors in parallel
-    const [wrd, [ipa, PoS, lvl, def, exp]] = await Promise.all([
-        $('.dpos-h_hw:first').text(), // word, idiom or phrase name
-        ScrapingCambridge() // scrape ipa, pos, lvl, def, exp
-    ]).catch(() => { // if any scrape matched, then alert user and exit app
-         console.log('\n', userInput, 
-         '\x1b[93mis not available in the Cambridge dictionary\n\x1b[37m')
-        process.exit()
-    }); let cambridge = { word:wrd, IPA:ipa, PoS:PoS, lvl:lvl, def:def, exp:exp } 
-    console.log(cambridge)
+    const [ipa, PoS, lvl, def, exp] = await ScrapingCambridge()
+    let cambridge = { word:wrd, IPA:ipa, PoS:PoS, lvl:lvl, def:def, exp:exp } 
 
     // Cache handler
-    if (test) return // disabled on test environment
+    if (test) return cambridge// disabled on test environment
     userInput = userInput.replaceAll('-', '')
     cambridge = `pedia.${userInput} = ` + JSON.stringify(cambridge) + '\n'
     const fileUrl = new URL('./cache/hashTable.js', import.meta.url)
@@ -29,7 +27,7 @@ export default async function webScrape(userInput, test = false) {
     try { fs.appendFileSync(filePath, cambridge) 
     } catch { fs.appendFileSync('./src/cache/hashTable.js', cambridge) }
     
-    // My finest scrapy web function!
+    // My finest scrapy web function! RETRIEVE IPA, PoS, CEFR LVL, DEF, EXP
     async function ScrapingCambridge(){
         let CEFR = $('.dxref')
         CEFR = !CEFR.length ? '' 
@@ -56,9 +54,9 @@ export default async function webScrape(userInput, test = false) {
         // GETTING ALL DATA IN PARALLEL
         const [ipa, pos, def, exp] = await Promise.all([
         // Spot out the IPA and PoS of top level definition
-            topBlock.the?.ipa.slice(1, -1) ?? '',
-            topBlock.the?.pos ?? '',
-            getDf(), getEx()
+            topBlock.the?.ipa.slice(1, -1) ?? '', // ipa
+            topBlock.the?.pos ?? '',              // pos
+            getDf(), getEx()                  // df & ex
         ])
         // Top level shortest definition
         function getDf() {
