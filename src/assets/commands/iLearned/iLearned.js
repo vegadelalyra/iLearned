@@ -32,14 +32,6 @@ export default async function iLearned(book = []) {
 
     // LET'S START THE PARTY !!!
     book = [word, def, exp]
+    console.log(book);
     return terminal_conversation(input, ...book)
 }
-
-let arg = [3, 2, 3]
-let miau = {a:'', b:'', c:''}
-miau = arg
-miau.a = 1
-// let book = [a, b, c]
-// a = 1
-// book = [a, b, c]
-console.log(miau) // [ 3, 2, 3 ]
