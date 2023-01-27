@@ -20,9 +20,10 @@ export default async function iLearned(book = []) {
     
     // Prompt for users when running default
     const newConceptLine = '~'.repeat(process.stdout.columns)
-    const newBookMsg = 'Seems like somebody here has learned something new today'
+    const ms1 = 'Seems like somebody here has'
+    const ms2 = 'learned something new today'
     if (input.length < 4) console
-    .log(`\n${C.g} /\\_/\\\n( ^.^ ) ${C.w} Seems like somebody here has  ${C.g}\n  >^< ${C.w} learned something new today!`)
+    .log(`\n${C.g} /\\_/\\\n( ^.^ )  ${C.w}${ms1}${C.g}\n  >^<  ${C.w}${ms2}`)
 
     // Web scraping word from Cambridge dictionary
     let userInput = word.split(' ').length == 1 
