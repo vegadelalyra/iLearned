@@ -1,12 +1,14 @@
 import axios from 'axios'
 import { load } from 'cheerio'
-import fs from 'fs'
 
 // web scrape your word data from Cambridge dictionary
-export default async function webScrape(userInput, test = false) {
+export default async function webScrape(userInput) {
     // send the HTTP get request with axios library, parse the data with cheerio
     const url = `https://dictionary.cambridge.org/dictionary/english/${userInput}`
-    const res = await axios.get(url), $ = load(res.data)
+    let res, $; try {
+        res = await axios.get(url, { timeout: 1000 }) 
+        $ = load(res.data)
+    } catch { return }
 
     // GUARD CLAUSE: Does thee word exists in the Cambridge dictionary?
     let wrd = $('.dpos-h_hw:first')  // word, idiom or phrase name
@@ -16,16 +18,7 @@ export default async function webScrape(userInput, test = false) {
     // retrieve all the desired data with high-level selectors in parallel
     const [ipa, PoS, lvl, def, exp] = await ScrapingCambridge()
     let cambridge = { word:wrd, IPA:ipa, PoS:PoS, lvl:lvl, def:def, exp:exp } 
-
-    // Cache handler
-    if (test) return cambridge// disabled on test environment
-    userInput = userInput.replaceAll('-', '')
-    cambridge = `pedia.${userInput} = ` + JSON.stringify(cambridge) + '\n'
-    const fileUrl = new URL('./cache/hashTable.js', import.meta.url)
-    let filePath = new URL(fileUrl).pathname
-    if (filePath.includes('/C:/')) filePath = filePath.slice(3)
-    try { fs.appendFileSync(filePath, cambridge) 
-    } catch { fs.appendFileSync('./src/cache/hashTable.js', cambridge) }
+    return cambridge  // return words highest level data from Cambridge dictionary :D
     
     // My finest scrapy web function! RETRIEVE IPA, PoS, CEFR LVL, DEF, EXP
     async function ScrapingCambridge(){

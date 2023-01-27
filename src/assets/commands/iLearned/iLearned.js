@@ -27,7 +27,7 @@ export default async function iLearned(book = []) {
     let userInput = word.split(' ').length == 1 
     ? word : word.replace(' ', '-'), cambridge
     if (/^[a-zA-Z-]+$/.test(userInput) && input.length < 3
-    ) cambridge = await webScrape(userInput, true)
+    ) cambridge = await webScrape(userInput)
 
     // if available in Cambridge, fill book, else, use user's book
     if (!cambridge) return terminal_conversation(input, ...book)
