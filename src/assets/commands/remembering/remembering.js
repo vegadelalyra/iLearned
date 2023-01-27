@@ -57,7 +57,7 @@ export default async function remembering() {
     const sure = confirm(splittedBooks, forgotten, indexes, 0) 
     console.log(colorLine)
     await new Promise( resolve => {
-        rl.question(`\x1b[33mAre you trying to remember ${sure}`, answer => {
+        rl.question(`${C.g}Are you trying to remember ${sure}`, answer => {
             // if negative, user won't remember
             if (/^[^yos]/i.test(answer) || answer.length == 0) return user_says_no()
             resolve(answer)
