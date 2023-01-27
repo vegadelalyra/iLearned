@@ -2,6 +2,7 @@
 import yargs from 'yargs'
 import terminal_conversation from './terminalConversation.js'
 import webScrape from '../../scrapyWeb/words.js'
+import { C } from '../../dependencies.js'
 
 // my default option 
 export default async function iLearned(book = []) {
@@ -21,7 +22,7 @@ export default async function iLearned(book = []) {
     const newConceptLine = '~'.repeat(process.stdout.columns)
     const newBookMsg = 'Seems like somebody here has learned something new today'
     if (input.length < 4) console
-    .log(`\x1b[33m${newConceptLine}\n\n\x1b[0m${newBookMsg} \x1b[33m ฅ ={^･ｪ･^}= \᳡ \n`)
+    .log(`\n${C.g} /\\_/\\\n( ^.^ ) ${C.w} Seems like somebody here has  ${C.g}\n  >^< ${C.w} learned something new today!`)
 
     // Web scraping word from Cambridge dictionary
     let userInput = word.split(' ').length == 1 
