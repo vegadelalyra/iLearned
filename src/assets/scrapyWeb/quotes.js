@@ -1,5 +1,6 @@
 import { load } from 'cheerio'
 import axios from 'axios'
+import { C } from '../dependencies.js'
 
 export default async function getQuotes(wordsPerPhrase = 14) {
     // the website from where we scrape "remember" topic quotes
@@ -42,10 +43,10 @@ export default async function getQuotes(wordsPerPhrase = 14) {
         // output [strove coloring REMEMBER word]
         let chosenOne = rP(epistle)
         chosenOne = chosenOne.slice(1, -1)
-        epistle = chosenOne.toLowerCase()
-        .split(' ').indexOf('remember')
+        epistle = chosenOne.toLowerCase().split(' ')
+        .findIndex( word => word.includes('remember'))
         chosenOne = chosenOne.split(' ')
-        chosenOne[epistle] = `\x1b[33m${chosenOne[epistle]}\x1b[37m`
+        chosenOne[epistle] = `${C.g}${chosenOne[epistle]}${C.w}`
         chosenOne = chosenOne.join(' ')
         return chosenOne
 
