@@ -7,7 +7,7 @@ import webScrape from '../../scrapyWeb/words.js'
 export default async function iLearned(book = []) {
     // Decoding user's input
     const argvInitialized = yargs(process.argv.slice(2)).argv
-    const input = argvInitialized._
+    let input = argvInitialized._
     .join(' ')
     .split('/')
     .filter( el => { return el != null && el != '' } )
@@ -34,14 +34,15 @@ export default async function iLearned(book = []) {
    
     // An english word! filling book for user
     if (input.length < 3) word = word + ' ' + cambridge.IPA    // word 
-    if (!exp) exp = cambridge.exp        // exp
-    book = [word, def, exp]
-    if (def) return terminal_conversation(input, ...book)
-    const lvlpos = !!cambridge.lvl 
-    ? `${cambridge.lvl} ${cambridge.PoS}, ` 
-    : `${cambridge.PoS}, `
-    def = lvlpos + cambridge.def        // def
-    book = [word, def, exp]
-    input.push(book[1], book[2])
+    if (!def) def = contriveDef()                               // def
+    if (!exp) exp = cambridge.exp                               // exp
+    
+    function contriveDef () {
+        const lvlpos = !!cambridge.lvl 
+        ? `${cambridge.lvl} ${cambridge.PoS}, ` 
+        : `${cambridge.PoS}, `
+        return def = lvlpos + cambridge.def                               
+    }
+    book = [word, def, exp]; input = book
     return terminal_conversation(input, ...book)
 }
