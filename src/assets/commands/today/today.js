@@ -8,7 +8,7 @@ export default function today() {
     
     console.log(
         '\n' + newConceptLine + `\n\x1b[33m${centerText("Today I learned:")}\n\n` + Book.today() + 
-        `\n\n${newConceptLine}\n\n\n${C.w}    *:・ﾟ✧ ＼（^ ▽ ^）／ ${Book.today() == '' ? 'ミ★ ...nothing xd ★彡' : ''}` 
+        `\n\n${newConceptLine}\n\n${C.w}    *:・ﾟ✧ ＼（^ ▽ ^）／ ${Book.today() == '' ? 'ミ★ ...nothing xd ★彡' : ''}` 
     ) 
     process.exit()
 }

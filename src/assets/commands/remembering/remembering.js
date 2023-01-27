@@ -1,7 +1,10 @@
 import { fs, rl, confirm, rlWrite } from '../../dependencies.js'
 import C from '../../dependencies/ANSI_COLORS.js'
+import getQuotes from '../../scrapyWeb/quotes.js'
 
 export default async function remembering() {
+    // Asynchronously load a quote if user decides to not remember
+    const REMEMBER_ME = getQuotes()
 
     // Dinamically import forgotten books and its keys.
     const forgotten = (await import('./forgotten.js')).forgotten
@@ -49,7 +52,7 @@ export default async function remembering() {
     // Question user
     const colorLine = '\n\x1b[32m' + '~'.repeat(process.stdout.columns)
     console.log(`${colorLine}\n\n /\\_/\\\n( ^.^ )${C.w} Here's the last stuff you have ${C.g}FORGOTTEN\n  \x1b[32m>^<`)
-    const sure = confirm(splittedBooks, forgotten, indexes, '\x1b[38;5m') 
+    const sure = confirm(splittedBooks, forgotten, indexes, 0) 
     console.log(colorLine)
     await new Promise( resolve => {
         rl.question(`\x1b[33mAre you trying to remember ${sure}`, answer => {
@@ -59,8 +62,8 @@ export default async function remembering() {
         }); rlWrite('OOUH YEAH ★彡 ⊂(ಥ﹏ಥ⊂)')
     })
 
-    function user_says_no() {
-        console.log('')
+    async function user_says_no() {
+        console.log(await REMEMBER_ME)
         process.exit()
     }   
     

@@ -1,7 +1,7 @@
 import { load } from 'cheerio'
 import axios from 'axios'
-await getQuotes()
-export default async function getQuotes(wordsPerPhrase = 13) {
+
+export default async function getQuotes(wordsPerPhrase = 14) {
     // the website from where we scrape "remember" topic quotes
     const url = "https://www.brainyquote.com/topics/remember-quotes" 
 
@@ -21,8 +21,10 @@ export default async function getQuotes(wordsPerPhrase = 13) {
     // Pursuit of retrieve a short quote.
     async function closure(next) {
         // update fetched link
-        const res = await axios.get(next || page, {timeout: 1000})
-        const $ = load(res.data)
+        let res, $; try {
+            res = await axios.get(next || page, {timeout: 1000})
+             $ = load(res.data)
+        } catch { return }
         
         // get the elements that matches your conditions
         const quotes = $(".oncl_q:nth-child(1) div")
@@ -37,10 +39,15 @@ export default async function getQuotes(wordsPerPhrase = 13) {
         // GUARD CLAUSE: Did you catch any? 
         if (!epistle.length) return innerClosure()
         
-        // output
+        // output [strove coloring REMEMBER word]
         let chosenOne = rP(epistle)
-        chosenOne = chosenOne.slice(0, -1)
-        return console.log('\x1b[33m' + chosenOne + '\x1b[37m')
+        chosenOne = chosenOne.slice(1, -1)
+        epistle = chosenOne.toLowerCase()
+        .split(' ').indexOf('remember')
+        chosenOne = chosenOne.split(' ')
+        chosenOne[epistle] = `\x1b[33m${chosenOne[epistle]}\x1b[37m`
+        chosenOne = chosenOne.join(' ')
+        return chosenOne
 
         function innerClosure() {
             // Pagination's Guard Clause: non-matching quote on page
