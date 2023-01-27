@@ -2,7 +2,7 @@ import { load } from 'cheerio'
 import axios from 'axios'
 import { C } from '../dependencies.js'
 
-export default async function getQuotes(wordsPerPhrase = 14) {
+export default async function getQuotes(wordsPerPhrase = 16) {
     // the website from where we scrape "remember" topic quotes
     const url = "https://www.brainyquote.com/topics/remember-quotes" 
 

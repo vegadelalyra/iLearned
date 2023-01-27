@@ -5,6 +5,8 @@ import getQuotes from '../../scrapyWeb/quotes.js'
 export default async function remembering() {
     // Asynchronously load a quote if user decides to not remember
     const REMEMBER_ME = getQuotes()
+    rl.removeAllListeners()
+    rl.on('SIGINT', async () => await user_says_no(true))
 
     // Dinamically import forgotten books and its keys.
     const forgotten = (await import('./forgotten.js')).forgotten
@@ -62,8 +64,8 @@ export default async function remembering() {
         }); rlWrite('OOUH YEAH ★彡 ⊂(ಥ﹏ಥ⊂)')
     })
 
-    async function user_says_no() {
-        console.log(await REMEMBER_ME)
+    async function user_says_no(c = false) {
+        console.log(c ? '\n' : '', await REMEMBER_ME)
         process.exit()
     }   
     
