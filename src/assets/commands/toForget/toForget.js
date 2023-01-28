@@ -5,7 +5,8 @@ import userInput from "./userInput.js"
 
 export default async function toForget(userInputs, result = false) {
     // declare user's input
-    const chapters = arguments[0]?.argv?._.slice(2) || userInputs
+    let chapters = arguments[0]?.argv?._.slice(2) || userInputs
+    chapters = chapters.filter(chapter => !!Book.hashMap[chapter])
     if (result) return finished(chapters)
 
     switch (chapters.length) {
@@ -13,7 +14,7 @@ export default async function toForget(userInputs, result = false) {
             // set up message
             const dontForgetMeUnU = ` *:・ﾟ✧ ＼（T ^ T ）／ ミ★ DON'T FORGET ME ★彡 ⊂(ಥ﹏ಥ⊂) ||||`,
             msg = '\x1b[33mPlease enter, on the next line, the name of the concetps\n you may wish to delete from your mind (hopefully none)'
-            console.log(`\x1b[33m\n> Your knowledge so far:\n\n\n ${Book.show()}\n\n\n ${dontForgetMeUnU}\n ${msg}\n\x1b[31m`)
+            console.log(`\x1b[33m\n> Your knowledge so far:\n\n\n${Book.show()}\n\n\n ${dontForgetMeUnU}\n ${msg}\n\x1b[31m`)
             
             // get user input with (or without) entries he wish to delete
             return await userInput()
