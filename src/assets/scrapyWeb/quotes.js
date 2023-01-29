@@ -23,7 +23,7 @@ export default async function getQuotes(wordsPerPhrase = 16) {
     async function closure(next) {
         // update fetched link
         let res, $; try {
-            res = await axios.get(next || page, {timeout: 1000})
+            res = await axios.get(next || page)
              $ = load(res.data)
         } catch { return }
         

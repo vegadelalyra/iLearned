@@ -34,6 +34,16 @@ class ANSI_COLORS {
    *  green.
    * @returns {string} The escape sequence for green.
    */get gn() { return '\x1b[32m' }
+
+     /**
+   *  cyan.
+   * @returns {string} The escape sequence for cyan.
+   */get c() { return '\x1b[36m' }
+
+        /**
+   *  light yellow.
+   * @returns {string} The escape sequence for light yellow.
+   */get c() { return '\x1b[93m' }
 }
 
 // Create a new instance of the ANSI_COLORS class
