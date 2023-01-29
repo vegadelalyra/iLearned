@@ -5,6 +5,7 @@ import today from './assets/commands/today/today.js'
 import inMyLife from './assets/commands/inMyLife/inMyLife.js'
 import toForget from './assets/commands/toForget/toForget.js'
 import remembering from './assets/commands/remembering/remembering.js'
+import toChange from './assets/commands/toChange/toChange.js'
 
 // YARGS: CLI flag (options) and commands arguments
 const argv = yargs(process.argv.slice(2))
@@ -14,7 +15,7 @@ const argv = yargs(process.argv.slice(2))
 .command('$0', 'Record a new concept: word / def / exp', () => {}, iLearned )
 .command('today', 'Show all concepts learned today', today)
 .command('in my life', 'Show all concepts learned in life', inMyLife)
-.command('to change', 'Update an existing concept [enter name]')
+.command('to change', 'Update an existing concept [enter name]', toChange)
 .command('to forget', 'Delete concepts [pass its names]', toForget)
 .command('remembering', 'Recovers last deleted concept/s', remembering)
 .alias('h', 'help')
