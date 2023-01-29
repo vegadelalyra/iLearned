@@ -5,7 +5,7 @@ import userInput from "./userInput.js"
 
 export default async function toForget(userInputs, result = false) {
     // declare user's input
-    let chapters = arguments[0]?.argv?._.slice(2) || userInputs
+    let chapters = arguments[0]?.argv?._?.slice(2) || userInputs
     chapters = chapters.filter(chapter => !!Book.hashMap[chapter])
     if (result) return finished(chapters)
 
