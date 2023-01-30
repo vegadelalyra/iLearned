@@ -43,7 +43,7 @@ class ANSI_COLORS {
         /**
    *  light yellow.
    * @returns {string} The escape sequence for light yellow.
-   */get c() { return '\x1b[93m' }
+   */get ly() { return '\x1b[93m' }
 }
 
 // Create a new instance of the ANSI_COLORS class

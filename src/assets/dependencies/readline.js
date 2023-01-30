@@ -33,13 +33,17 @@ rl.on('SIGINT', () => {
 
 // amazing per-word autocomplete function
 function autocomplete(line) {
-    // retrieve data and user input, cure both.
-    const completions = Object.keys(Book.hashMap)
-    const lineCurated = line.trim().toLowerCase().split(' ')
-  
-    // get last user word to always trigger autocomplete on user input
-    const lastWordInput = lineCurated.at(-1)
-    return [completions.filter( key => key.toLowerCase().startsWith(lastWordInput)), lastWordInput]
+  // retrieve data and user input, cure both.
+  const completions = Object.keys(Book.hashMap)
+  const lineCurated = line.trim().toLowerCase().split(' ')
+
+  // get last user word to always trigger autocomplete on user input
+  const lastWordInput = lineCurated.at(-1)
+  return [completions.filter( key => 
+    key.toLowerCase()
+    .startsWith(lastWordInput)), 
+    lastWordInput
+  ]
 }
 
 export { rl, rlWrite }

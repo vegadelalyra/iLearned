@@ -22,17 +22,17 @@ export default async function(question = '', write = '', accKeys = false) {
       resolve(askedKeys)
       if (!/^[^yos]/i.test(answer) && accKeys && !askedKeys.length && answer) guard = false
     })
-      // in any case admon wants to add any default input text.
-      rlWrite(write)
-    })
-      // guard clauses
-    if (accKeys) if (userInput.length > 0) {
-      for (const key of userInput) if (accKeys.includes(key)) {
-        userInput.splice(userInput.indexOf(key), 1) 
-        accKeys.splice(accKeys.indexOf(key), 1) 
-      }; userInput.push(...accKeys)
-    }
-
-    if (guard) return toForget(userInput)
-    else userInput.push(...accKeys); toForget(userInput, true)
+    // in any case admon wants to add any default input text.
+    rlWrite(write)
+  })
+  // guard clauses
+  if (accKeys) if (userInput.length > 0) {
+    for (const key of userInput) if (accKeys.includes(key)) {
+      userInput.splice(userInput.indexOf(key), 1) 
+      accKeys.splice(accKeys.indexOf(key), 1) 
+    }; userInput.push(...accKeys)
   }
+
+  if (guard) return toForget(userInput)
+  else userInput.push(...accKeys); toForget(userInput, true)
+}
