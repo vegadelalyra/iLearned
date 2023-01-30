@@ -84,7 +84,8 @@ class Queue {
 
   // Delete a given chapter of the book
   delete(chapter) {
-    if (!this.hashMap[chapter]) return console.error(`\n\x1b[31m>>> ${chapter} is not recorded inside your brain!!! ...Yet (e.ó)/`);
+    if (!this.hashMap[chapter]) return console.error(
+    `>>> ${chapter} is not recorded inside your brain!!! ...Yet (e.ó)/`)
 
     const current = this.hashMap[chapter]
 

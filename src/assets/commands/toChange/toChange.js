@@ -1,8 +1,10 @@
-import { C } from "../../dependencies.js"
+import { C, userInput } from "../../dependencies.js"
 import Book from "../../saveQueue.js"
-import userInput from "../toForget/userInput.js"
+import record from "../iLearned/terminalConversation.js"
 
 export default function toChange(userInputs) {
+    // User's input validation
+    userInputs = userInputs.filter(chapter => !!Book.hashMap[chapter])
     if (!userInputs.length) return noInputs()
     return modifyInputs()
     
@@ -17,16 +19,13 @@ export default function toChange(userInputs) {
         const msg = `${C.g} Which concepts you may want to CHANGE?${C.w}\n`
         const miau = `${C.w} /\\_/\\\n( ^.^ )${msg}  >^<${C.c}\n` 
         console.log(miau)
-        userInput()
+        userInput(toChange)
     }
 
     // In case user did indicate which books is going to change 
-    function modifyInputs() {
-        // OUPUT
-        console.log(arguments)
-        // const book = Book.hashMap[userInput]
-
-        // INPUT
+    async function modifyInputs() {
+        // await record('', Book.hashMap[userInputs[0]])
+        console.log([Book.hashMap])
         process.exit()
     }
 }

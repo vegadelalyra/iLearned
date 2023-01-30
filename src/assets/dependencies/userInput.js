@@ -1,9 +1,8 @@
-import Book from "../../saveQueue.js"
-import { rl, rlWrite } from "../../dependencies.js"
-import toForget from "./toForget.js"
+import Book from "../saveQueue.js"
+import { rl, rlWrite } from "../dependencies.js"
 
 // custom input streaming TTY interaction for iLearned 
-export default async function(question = '', write = '', accKeys = false) {
+export default async function userInput(fn, question = '', write = '', accKeys = false) {
   let guard = true
   const userInput = await new Promise(resolve => {
     rl.question(question, answer => {
@@ -33,6 +32,6 @@ export default async function(question = '', write = '', accKeys = false) {
     }; userInput.push(...accKeys)
   }
 
-  if (guard) return toForget(userInput)
-  else userInput.push(...accKeys); toForget(userInput, true)
+  if (guard) return fn(userInput)
+  else userInput.push(...accKeys); fn(userInput, true)
 }

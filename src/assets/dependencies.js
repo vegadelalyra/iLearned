@@ -5,5 +5,6 @@ import centerText from './dependencies/centerText.js'
 import confirm from './dependencies/confirm.js'
 import date_of_birth from './dependencies/date_of_birth.js'
 import { rl, rlWrite } from './dependencies/readline.js'
+import userInput from './dependencies/userInput.js'
 
-export { fs, rl, rlWrite, date_of_birth, confirm, centerText, C }
+export { fs, rl, rlWrite, date_of_birth, confirm, centerText, C, userInput }

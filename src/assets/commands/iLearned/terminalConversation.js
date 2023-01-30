@@ -1,9 +1,8 @@
-import { fs, rl, rlWrite } from '../../dependencies.js'
+import { fs, rl, rlWrite, C } from '../../dependencies.js'
 import { trollMessages } from './trollMessages.js'
 import chapter from './resultFormat.js'
 import Book from '../../saveQueue.js'
 import '../../../../bin/input.js'
-import C from '../../dependencies/ANSI_COLORS.js'
 
 export default async function record(input = '') { 
     

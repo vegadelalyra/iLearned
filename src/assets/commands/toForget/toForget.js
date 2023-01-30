@@ -1,7 +1,6 @@
 import finished from "./finished.js"
-import C from "../../dependencies/ANSI_COLORS.js"
 import Book from "../../saveQueue.js"
-import userInput from "./userInput.js"
+import { C, userInput } from "../../dependencies.js"
 
 export default async function toForget(userInputs, result = false) {
     // declare user's input
@@ -18,7 +17,7 @@ export default async function toForget(userInputs, result = false) {
             console.log(`${C.g}\n> Your knowledge so far:\n\n${redLine}\n\n${Book.show()}\n\n${redLine}\n\n ${C.w}${dontForgetMeUnU} ${msg}`)
             
             // get user input with (or without) entries he wish to delete
-            return await userInput()
+            return await userInput(toForget)
     
         default:
             let confirmation = []
@@ -39,6 +38,6 @@ export default async function toForget(userInputs, result = false) {
             }
             console.log(`    ${C.w}*:・ﾟ✧ ＼（T ^ T ）／ ・ﾟ✧*:`)
             const question = `${C.g}Are you sure you want to forget ${C.w}${confirmation}${C.g}?${C.r}\n`
-            await userInput(question, 'YEAH', chapters)
+            await userInput(toForget, question, 'YEAH', chapters)
     }
 }
