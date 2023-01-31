@@ -1,5 +1,4 @@
-import { date_of_birth } from "./dependencies.js"
-import C from "./dependencies/ANSI_COLORS.js"
+import { date_of_birth, C } from "./dependencies.js"
 
 class Node {
     constructor(value, chapter) {

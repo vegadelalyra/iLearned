@@ -1,11 +1,11 @@
 import finished from "./finished.js"
 import Book from "../../saveQueue.js"
-import { C, userInput } from "../../dependencies.js"
+import { C, hashMap_validation, userInput } from "../../dependencies.js"
 
 export default async function toForget(userInputs, result = false) {
     // declare user's input
     let chapters = arguments[0]?.argv?._?.slice(2) || userInputs
-    chapters = chapters.filter(chapter => !!Book.hashMap[chapter])
+    chapters = hashMap_validation(chapters)
     const redLine = '\x1b[31m' + '='.repeat(process.stdout.columns)
     if (result) return finished(chapters)
 

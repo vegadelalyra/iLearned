@@ -54,12 +54,13 @@ export default async function record(input = '') {
                 // if negative, user will modify his input
                 if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
                 
-                // if positive, user will registry knowledge
-                console.log('\nLearning...\n');
-                
-                // saving process handler
                 const h = `Book.enqueue(${ "`" + aNew + "`" }, ${"`" + arguments[1] + "`"})\n`
-                fs.appendFile( 'input.js', h, (err) => { if (err) throw err } )            
+              
+                // if positive, user will registry knowledge
+                console.log('\nLearning...\n')                
+
+                // saving process handler
+                fs.appendFile( 'input.js', h, err => { if (err) throw err } )            
                 Book.enqueue('\x1b[37m\n> ' + aNew, arguments[1])
 
                 // huge guard clause in case it's the first user input 

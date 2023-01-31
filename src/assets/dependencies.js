@@ -6,5 +6,10 @@ import confirm from './dependencies/confirm.js'
 import date_of_birth from './dependencies/date_of_birth.js'
 import { rl, rlWrite } from './dependencies/readline.js'
 import userInput from './dependencies/userInput.js'
+import hashMap_validation from './dependencies/validation.js'
 
-export { fs, rl, rlWrite, date_of_birth, confirm, centerText, C, userInput }
+export { 
+    fs, rl, rlWrite, date_of_birth, 
+    confirm, centerText, C, 
+    userInput, hashMap_validation 
+}

@@ -1,10 +1,11 @@
-import { C, userInput } from "../../dependencies.js"
+import { C, fs, hashMap_validation, userInput } from "../../dependencies.js"
 import Book from "../../saveQueue.js"
 import record from "../iLearned/terminalConversation.js"
 
 export default function toChange(userInputs) {
     // User's input validation
-    userInputs = userInputs.filter(chapter => !!Book.hashMap[chapter])
+    const index_modifiedBook = []
+    userInputs = hashMap_validation(userInputs)
     if (!userInputs.length) return noInputs()
     return modifyInputs()
     
@@ -24,8 +25,26 @@ export default function toChange(userInputs) {
 
     // In case user did indicate which books is going to change 
     async function modifyInputs() {
-        // await record('', Book.hashMap[userInputs[0]])
-        console.log([Book.hashMap])
-        process.exit()
+        // Gangplank for changing each valid user's input
+        const former = userInputs.at(-1)
+        const book = Book.hashMap[former]
+        .split('/').map(x => x.slice(
+            x.indexOf('m ') + 2, 
+            x.indexOf(' \x1b[33m')
+        ))
+
+        // Getting book changes and index of changed book
+        const newCh = await record('', ['', ...book])
+        const i = Object.keys(Book.hashMap).indexOf(former)
+
+        // Book changed? Save and pop it!
+        index_modifiedBook.push([i, newCh])
+        userInputs.pop() // Until empty
+        if (userInputs.length) return modifyInputs
+
+        // Commiting changes on each valid user's input
+        fs.readFileSync('input.js', 'utf8', (e, data) => {
+            if (e) throw e
+        }); process.exit()
     }
 }
