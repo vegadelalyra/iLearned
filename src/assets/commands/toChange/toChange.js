@@ -34,17 +34,18 @@ export default function toChange(userInputs) {
         ))
 
         // Getting book changes and index of changed book
-        const newCh = await record('', ['', ...book])
-        const i = Object.keys(Book.hashMap).indexOf(former)
+        const newCh = await record('', ['', ...book, 'a'])
+        console.log(newCh)
+        // const i = Object.keys(Book.hashMap).indexOf(former)
 
-        // Book changed? Save and pop it!
-        index_modifiedBook.push([i, newCh])
-        userInputs.pop() // Until empty
-        if (userInputs.length) return modifyInputs
+        // // Book changed? Save and pop it!
+        // index_modifiedBook.push([i, newCh])
+        // userInputs.pop() // Until empty
+        // if (userInputs.length) return modifyInputs
 
-        // Commiting changes on each valid user's input
-        fs.readFileSync('input.js', 'utf8', (e, data) => {
-            if (e) throw e
-        }); process.exit()
+        // // Commiting changes on each valid user's input
+        // fs.readFileSync('input.js', 'utf8', (e, data) => {
+        //     if (e) throw e
+        // }); process.exit()
     }
 }
