@@ -4,7 +4,6 @@ import getQuotes from '../../scrapyWeb/quotes.js'
 
 export default async function remembering() {
     // Asynchronously load a quote if user decides to not remember
-    const REMEMBER_ME = getQuotes()
     rl.removeAllListeners()
     rl.on('SIGINT', async () => await user_says_no(true))
 
@@ -14,6 +13,7 @@ export default async function remembering() {
 
     // FIRST OF ALL, A HUGE GUARD CLAUSE Xd so REMEMBERING can only be triggered once.
     if (forgotten instanceof Uint8Array) return user_already_remembered()
+    const REMEMBER_ME = getQuotes()
 
     function user_already_remembered() {
         // Close user's input
@@ -97,11 +97,11 @@ export default async function remembering() {
         for (const chapter of splittedBooks) {
           timer = timer * scale, scale = scale * 0.9
           await new Promise(resolve => setTimeout( 
-            () => resolve(console.log(`${C.w}${chapter} \x1b[33mrecovered`)), timer))
+            () => resolve(console.log(`${C.w}${chapter} ${C.g}recovered`)), timer))
         }
         setTimeout( () => {
             const msg = `${C.w} CONCEPT${splittedBooks.length > 1 ? 'S' : ''} REMEMBERED`
-            const cat = `\n\x1b[32m /\\_/\\\n( ^.^ )${msg}\n  \x1b[32m>^<`
+            const cat = `\n${C.gn} /\\_/\\\n( ^.^ )${msg}\n ${C.gn} >^<`
             console.log(cat)
         }, 300 ) 
       })()

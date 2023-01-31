@@ -1,1 +1,1 @@
-import C from "../../dependencies/ANSI_COLORS.js"; export default function chapter() { return `${C.g}{${C.w} ${arguments[0]} ${C.g} / ${C.w} ${arguments[1]} ${C.g}/${C.w} ${arguments[2]} ${C.g}${C.w}`}
+import C from "../../dependencies/ANSI_COLORS.js"; export default function chapter() { return `${C.g}{${C.w} ${arguments[0]} ${C.g} / ${C.w} ${arguments[1]} ${C.g} / ${C.w} ${arguments[2]} ${C.g}}${C.w}`}

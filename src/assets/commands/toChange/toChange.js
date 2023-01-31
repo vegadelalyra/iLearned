@@ -1,13 +1,23 @@
 import { C, fs, hashMap_validation, userInput } from "../../dependencies.js"
 import Book from "../../saveQueue.js"
 import record from "../iLearned/terminalConversation.js"
+import changes from "./changes.js"
 
-export default function toChange(userInputs) {
+export default async function toChange(userInputs) {
     // User's input validation
     const index_modifiedBook = []
     userInputs = hashMap_validation(userInputs)
     if (!userInputs.length) return noInputs()
-    return modifyInputs()
+
+    // User proceeds to change
+    const ram = Math.round(Math.random() * changes.length)
+    let ch = changes[ram]
+    ch = ch.split(', ')
+    ch[0] = '🎵 ' + ch[0]
+    !ch[1] ? ch[0] = ch[0] + ' 🎵' 
+    : ch[1] = ch[1] + ' 🎵'
+    console.log(`\n${C.c} /\\_/\\\n( ^.^ ) ${C.w}${ch[0]}${C.c}\n  >^<  ${C.w}${ch[1]??''}${C.c}`)
+    return await modifyInputs()
     
     // In case user didn't indicate which books is going to change
     async function noInputs() {
@@ -17,8 +27,8 @@ export default function toChange(userInputs) {
         console.log(blueLine + '\n' + Book.show() + '\n' + blueLine)
         
         // INPUT
-        const msg = `${C.g} Which concepts you may want to CHANGE?${C.w}\n`
-        const miau = `${C.w} /\\_/\\\n( ^.^ )${msg}  >^<${C.c}\n` 
+        const msg = `${C.w} Which ${C.g}CONCEPTS${C.w} you may want to${C.g} CHANGE?${C.c}\n`
+        const miau = `${C.c} /\\_/\\\n( ^.^ )${msg}  >^<\n` 
         console.log(miau)
         userInput(toChange)
     }
@@ -34,23 +44,42 @@ export default function toChange(userInputs) {
         ))
 
         // Getting book changes and index of changed book
-        const newCh = await record('', ['', ...book, 'a'])
+        const newCh = await record('', ['', ...book])
         const i = Object.keys(Book.hashMap).indexOf(former)
 
         // // Book changed? Save and pop it!
         index_modifiedBook.push([i, newCh])
         userInputs.pop() // Until empty
-        if (userInputs.length) return modifyInputs
+        if (userInputs.length) return modifyInputs()
+        console.log('\nChanging . . . \n\n')
         return commitChanges()
 
         // Commiting changes on each valid user's input
-        function commitChanges() {
-            console.log('awebooo')
-            fs.readFileSync('input.js', 'utf8', (e, data) => {
-                if (e) throw e
-
-                
+        async function commitChanges(s = false, n = 400) {
+            // Dramatic Frontend
+            await new Promise ( resolve => {
+                setTimeout(() => resolve(
+                    console.log(`${former} ${C.g}updated\n`)
+                ), n )
             })
+
+            // Abortable Backend
+            let index = index_modifiedBook.at(-1)[0]
+            const data = index_modifiedBook.at(-1)[1]
+            let inputs = fs.readFileSync('input.js')
+            .toString().split('\n')
+            inputs.splice(index + 1, 1, data)
+            inputs = inputs.join('\n')
+            fs.writeFileSync('input.js', inputs, e => {if (e)throw e})
+            index_modifiedBook.pop()
+
+            // If concepts remain, continue, else, cat ending.
+            if (index_modifiedBook.length) return commitChanges(true, n * 0.9)
+            const msg = `${C.w} CONCEPT${!s ? '' : 'S'} CHANGED`
+            const cat = `${C.c} /\\_/\\\n( ^.^ )${msg}\n  ${C.c}>^<`
+            await new Promise ( resolve => ( setTimeout (
+                () => resolve(console.log(cat)), 400
+            ))); process.exit()
         }
     }
 }
