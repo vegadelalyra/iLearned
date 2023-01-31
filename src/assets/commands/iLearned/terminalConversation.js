@@ -48,7 +48,8 @@ export default async function record(input = '') {
             console.log('\n', aNew, '\n')
 
             // user confirms record.
-            rl.question(`\x1b[33mIs this right? ${C.w}`, answer => {
+            await new Promise(resolve => {
+                rl.question(`\x1b[33mIs this right? ${C.w}`, answer => {
                 // if user sigint (signal interrupt) ^C, break the line
 
                 // if negative, user will modify his input
@@ -80,7 +81,7 @@ export default async function record(input = '') {
                     rl.close()
                 }, 1369 )
             }); rlWrite('Yes')
-            break
+        }); break
 
         default:
             console.error(`\n\x1b[31mError!\n The iLearned command can only accept 3 arguments.\n It appears that you have provided 4 :(\n\n Please make sure to separate the arguments with\n a forward-slash >${C.w} / \x1b[31m< when using the iLearned command.\n`)

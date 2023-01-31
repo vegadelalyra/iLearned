@@ -11,6 +11,5 @@ Book.enqueue(`[33m{[37m Unwind [33m / [37m C2 verb To unfasten something tha
 Book.enqueue(`[33m{[37m Further ˈfɜː.ðər [33m / [37m To develop or make progress in something [33m / [37m Money would be a great help in furthering our cause [33m}[37m`, `Further ˈfɜː.ðər`)
 Book.enqueue(`[33m{[37m Pursuit pɚˈsuːt [33m / [37m The act of trying to achieve a plan, activity, or situation, usually over a long period of time [33m / [37m My way of living is the pursuit of transforming truths [33m}[37m`, `Pursuit pɚˈsuːt`)
 Book.enqueue(`[33m{[37m Endeavour enˈdev.ɚ [33m / [37m C1 noun verb To attempt to do something [33m / [37m Let us endeavor so to live that when we come to die even the undertaken will be sorry [33m}[37m`, `Endeavour enˈdev.ɚ`)
-Book.enqueue(`[33m{[37m webonadas [33m / [37m muchas webonadas [33m / [37m las webonadas dan sentido a la idiotez [33m}[37m`, `webonadas`)
 Book.enqueue(`[33m{[37m spoon [33m / [37m Used to grip and drink soup [33m / [37m Could you bring me the spoon, please? [33m}[37m`, `spoon`)
 Book.enqueue(`[33m{[37m misifu [33m / [37m miau miau [33m / [37m aguacate [33m}[37m`, `misifu`)
