@@ -51,32 +51,32 @@ export default async function toChange(userInputs) {
         index_modifiedBook.push([i, newCh])
         userInputs.pop() // Until empty
         if (userInputs.length) return modifyInputs()
-        console.log('\nChanging . . . \n\n')
+        console.log('\nChanging . . . \n')
         return commitChanges()
 
         // Commiting changes on each valid user's input
         async function commitChanges(s = false, n = 400) {
             // Dramatic Frontend
-            await new Promise ( resolve => {
-                setTimeout(() => resolve(
-                    console.log(`${former} ${C.g}updated\n`)
-                ), n )
-            })
-
-            // Abortable Backend
             let index = index_modifiedBook.at(-1)[0]
             const data = index_modifiedBook.at(-1)[1]
+            const book = data.slice(data.indexOf("`, `") + 4, -3) 
+            await new Promise ( resolve => {
+                setTimeout(() => resolve(
+                    console.log(`${C.w}${book} ${C.g}updated`)
+            ), n )})
+
+            // Abortable Backend
             let inputs = fs.readFileSync('input.js')
-            .toString().split('\n')
-            inputs.splice(index + 1, 1, data)
+            .toString().split('\n').filter(l => !!l)
+            inputs.splice(++index, 1, data)
             inputs = inputs.join('\n')
-            fs.writeFileSync('input.js', inputs, e => {if (e)throw e})
+            fs.writeFileSync('input.js', inputs, e => { if (e) throw e })
             index_modifiedBook.pop()
 
             // If concepts remain, continue, else, cat ending.
             if (index_modifiedBook.length) return commitChanges(true, n * 0.9)
             const msg = `${C.w} CONCEPT${!s ? '' : 'S'} CHANGED`
-            const cat = `${C.c} /\\_/\\\n( ^.^ )${msg}\n  ${C.c}>^<`
+            const cat = `\n${C.c} /\\_/\\\n( ^.^ )${msg}\n  ${C.c}>^<`
             await new Promise ( resolve => ( setTimeout (
                 () => resolve(console.log(cat)), 400
             ))); process.exit()
