@@ -1,13 +1,21 @@
 import Book from "../saveQueue.js"
 
-export default function hashMap_validation(v) {
-    let lcObj = {}, obj = Book.hashMap
-    for (const key in obj) lcObj[key.toLowerCase()] = obj[key]
+export default function validateHashMap(values) {
+  const hashMap = Book.hashMap
+  const lowerCaseHashMap = {}
 
-    let p = v.map(x => x.toLowerCase())
-    p = p.filter( x => !!lcObj[x] )
-    v = Object.keys(lcObj)
-    p = p.map(x => v.findIndex(z => z === x))
-    .map(x => Object.keys(obj)[x])
-    return p
-  }
+  // create a lower case hash map
+  Object.keys(hashMap).forEach(key => {
+    lowerCaseHashMap[key.toLowerCase()] = hashMap[key]
+  })
+
+  // convert input values to lower case and filter out invalid values
+  const filteredValues = values
+    .map(value => value.toLowerCase())
+    .filter(value => lowerCaseHashMap[value])
+
+  // convert filtered values back to the original case and return
+  return filteredValues.map(value => 
+    Object.keys(hashMap).find(key => 
+      key.toLowerCase() === value))
+}

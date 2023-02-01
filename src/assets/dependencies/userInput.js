@@ -1,7 +1,8 @@
 import Book from "../saveQueue.js"
 import { rl, rlWrite } from "../dependencies.js"
 
-// custom input streaming TTY interaction for iLearned 
+// custom input streaming TTY interaction for iLearned
+// validates commands with multiple words as valid inputs provided that exists already in DB.
 export default async function userInput(fn, question = '', write = '', accKeys = false) {
   let guard = true
   const userInput = await new Promise(resolve => {
