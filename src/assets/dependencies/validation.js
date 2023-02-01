@@ -1,9 +1,10 @@
 import Book from "../saveQueue.js"
 
+// Validates whereas user's inputs exists on hashMap
 export default function validateHashMap(values) {
-  const hashMap = Book.hashMap
+  const hashMap = Object.keys(Book.hashMap)
   return hashMap.filter(book => {
-    values.join(' ')
+    return values.join(' ')
     .toLowerCase()
     .includes(book.toLowerCase()) 
   })
