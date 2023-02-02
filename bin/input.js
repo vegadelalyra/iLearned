@@ -12,4 +12,4 @@ Book.enqueue(`[33m{[37m Further ˈfɜː.ðər [33m / [37m To develop or make
 Book.enqueue(`[33m{[37m Pursuit pɚˈsuːt [33m / [37m The act of trying to achieve a plan, activity, or situation, usually over a long period of time [33m / [37m My way of living is the pursuit of transforming truths [33m}[37m`, `Pursuit pɚˈsuːt`)
 Book.enqueue(`[33m{[37m Endeavour enˈdev.ɚ [33m / [37m C1 noun verb To attempt to do something [33m / [37m Let us endeavor so to live that when we come to die even the undertaken will be sorry [33m}[37m`, `Endeavour enˈdev.ɚ`)
 Book.enqueue(`[33m{[37m Spoon [33m / [37m Used for mixing, serving, and eating food [33m / [37m Could you bring me the spoon, please? [33m}[37m`, `Spoon`)
-Book.enqueue(`[33m{[37m misifu [33m / [37m misifu [33m / [37m Scatash [33m}[37m`, `misifu`)
+Book.enqueue(`[33m{[37m misifu [33m / [37m angela [33m / [37m Scatash [33m}[37m`, `misifu`)

@@ -37,7 +37,8 @@ export default async function record(input = '') {
             do {
                 trollMessages(c++)
                 arguments[3] = await new Promise( resolve => {
-                    rl.question(`\n\x1b[33m> Give me an example [\x1b[34mso we can say you have really got it... e_é\x1b[33m]\n${C.w}`, resolve )
+                    // [${C.b}so we can say you have really got it... e_é${C.g}]
+                    rl.question(`\n\x1b[33m> Give me an example\n${C.w}`, resolve )
                     rlWrite(modifyValues[1][3])
                 })
             } while (arguments[3].trim() === '')
@@ -49,12 +50,28 @@ export default async function record(input = '') {
 
             // user confirms record.
             const utterBook = await new Promise(resolve => {
-                rl.question(`\x1b[33mIs this right? ${C.w}`, answer => {
+                rl.question(`${C.g}Is this right? ${C.w}`, async answer => {
                 // if user sigint (signal interrupt) ^C, break the line
 
                 // if negative, user will modify his input
                 if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
                 
+                // if positive, existence validation will be triggered.
+                console.log(process.argv);
+                if (Book.hashMap[arguments[1]]) await new Promise(async resolve => {
+                    const msg = `${arguments[1] + C.r} already exists\n\n `
+                    const existingBook =`${Book.hashMap[arguments[1]] + C.r}\n\n`
+                    const query = `Do you want to OVERWRITE ${C.w + arguments[1]}`
+                    const odd = `${C.g} ?\n${C.r}[${C.g}will lose its position${C.r}]${C.w} `
+                    const alert = '\n' + msg + existingBook + query + odd
+                    rl.question(alert, answer => {
+                        if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
+                    })
+                    // console.log(rlWrite('Overwrite!!!')) 
+                    rlWrite('Overwrite!!!') 
+                    // console.log()
+                })
+
                 // if positive, user will registry knowledge
                 const h = `Book.enqueue(${ "`" + aNew + "`" }, ${"`" + arguments[1] + "`"})\n`
                 if (process.argv[2] == 'to' && process.argv[3] == 'change') return resolve(h)
