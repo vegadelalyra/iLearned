@@ -69,8 +69,8 @@ export default async function record(input = '') {
                     rl.question(alert, answer => {
                         if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
                     })
-                    // console.log(rlWrite('Overwrite!!!')) 
-                    console.log('\n')
+                    console.log(rl.write('Overwrite!!!')) 
+                    console.log('\n') // por aki es crack 
                 })
 
                 // if positive, user will registry knowledge
