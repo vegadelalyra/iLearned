@@ -44,6 +44,7 @@ export default async function toChange(userInputs) {
         ))
 
         // Getting book changes and index of changed book
+        if (process.argv.length < 5) process.argv.push(book[0])
         const newCh = await record('', ['', ...book]) // ('', ['', ...book]) or (book, ...book) 
         const i = Object.keys(Book.hashMap).indexOf(former)
 
