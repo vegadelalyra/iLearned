@@ -3,6 +3,7 @@ import { trollMessages } from './trollMessages.js'
 import chapter from './resultFormat.js'
 import Book from '../../saveQueue.js'
 import '../../../../bin/input.js'
+import readline from 'readline'
 
 export default async function record(input = '') { 
     
@@ -66,9 +67,10 @@ export default async function record(input = '') {
                     const query = `Do you want to OVERWRITE ${C.w + arguments[1]}`
                     const odd = `${C.g} ?\n${C.r}[${C.g}will lose its position${C.r}]${C.w} `
                     const alert = msg + existingBook + query + odd
+                    readline.clearLine()
                     rl.question(alert, answer => {
                         if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
-                    })
+                    }); rl.write('OVERWRITE IT!!!')
                 })
 
                 // if positive, user will registry knowledge
