@@ -55,6 +55,7 @@ export default async function record(input = '') {
 
                 // if negative, user will modify his input
                 if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
+
                 
                 // if positive, existence validation will be triggered.
                 if ((Book.hashMap[arguments[1]] && process.argv[2] != 'to' && process.argv[2] != 'change') 
@@ -65,11 +66,9 @@ export default async function record(input = '') {
                     const query = `Do you want to OVERWRITE ${C.w + arguments[1]}`
                     const odd = `${C.g} ?\n${C.r}[${C.g}will lose its position${C.r}]${C.w} `
                     const alert = msg + existingBook + query + odd
-                    rl.question('alert', answer => {
+                    rl.question(alert, answer => {
                         if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
-                        resolve(console.log('miau from q'))
                     })
-                    rlWrite('Overwrite!!!')
                 })
 
                 // if positive, user will registry knowledge
