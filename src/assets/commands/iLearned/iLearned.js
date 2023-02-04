@@ -46,5 +46,5 @@ export default async function iLearned(book = []) {
         return def = lvlpos + cambridge.def                               
     }
     book = [word, def, exp]; input = book
-    return terminal_conversation(input, ...book)
+    return await terminal_conversation(input, ...book)
 }

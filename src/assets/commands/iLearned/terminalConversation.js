@@ -3,7 +3,8 @@ import { trollMessages } from './trollMessages.js'
 import chapter from './resultFormat.js'
 import Book from '../../saveQueue.js'
 import '../../../../bin/input.js'
-
+const miau = ['misifu','misifu','misifu']
+await record(miau, ...miau)
 export default async function record(input = '') { 
     
     // when user wants to modify the record
@@ -65,12 +66,10 @@ export default async function record(input = '') {
                     const query = `Do you want to OVERWRITE ${C.w + arguments[1]}`
                     const odd = `${C.g} ?\n${C.r}[${C.g}will lose its position${C.r}]${C.w} `
                     const alert = '\n' + msg + existingBook + query + odd
-                    rlWrite('Overwrite!!!') 
                     rl.question(alert, answer => {
                         if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
                     })
-                    console.log(rl.write('Overwrite!!!')) 
-                    console.log('\n') // por aki es crack 
+                    rlWrite('Overwrite!!!')
                 })
 
                 // if positive, user will registry knowledge
