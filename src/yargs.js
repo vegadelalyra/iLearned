@@ -8,6 +8,7 @@ import remembering from './assets/commands/remembering/remembering.js'
 import toChange from './assets/commands/toChange/toChange.js'
 
 // validating compound commands (to sustain a sortered help menu)
+console.clear()
 const kennings = {
     'change': toChange,
     'forget': toForget
