@@ -3,8 +3,7 @@ import { trollMessages } from './trollMessages.js'
 import chapter from './resultFormat.js'
 import Book from '../../saveQueue.js'
 import '../../../../bin/input.js'
-const miau = ['misifu','misifu','misifu']
-await record(miau, ...miau)
+
 export default async function record(input = '') { 
     
     // when user wants to modify the record
@@ -60,14 +59,15 @@ export default async function record(input = '') {
                 // if positive, existence validation will be triggered.
                 if ((Book.hashMap[arguments[1]] && process.argv[2] != 'to' && process.argv[2] != 'change') 
                     || process.argv[4] == arguments[1]
-                ) await new Promise(async resolve => {
+                ) await new Promise( resolve => {
                     const msg = `${arguments[1] + C.r} already exists\n\n `
                     const existingBook =`${Book.hashMap[arguments[1]] + C.r}\n\n`
                     const query = `Do you want to OVERWRITE ${C.w + arguments[1]}`
                     const odd = `${C.g} ?\n${C.r}[${C.g}will lose its position${C.r}]${C.w} `
-                    const alert = '\n' + msg + existingBook + query + odd
-                    rl.question(alert, answer => {
+                    const alert = msg + existingBook + query + odd
+                    rl.question('alert', answer => {
                         if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
+                        resolve(console.log('miau from q'))
                     })
                     rlWrite('Overwrite!!!')
                 })
