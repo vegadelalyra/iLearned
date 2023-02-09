@@ -56,13 +56,18 @@ export default async function record(input = '') {
                     // if negative, user will modify his input
                     if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
 
+                    // variables required to validate overwritten books whilst learning or changing books
+                    const toChange = process.argv[2] == 'to' && process.argv[3] == 'change'
+                    let tChIn = process.argv.slice(4).join(' ').trim()
+                    tChIn = tChIn.slice(0, tChIn.indexOf('/'))
+                    const doesItExist = Book.hashMap[arguments[1]]
+                    
                     // if user is not changing a book but recording a new one and this already exists or
                     // if user is changing a book and validation script will be triggered.
-                    if ((Book.hashMap[arguments[1]] && process.argv[2] != 'to' && process.argv[3] != 'change')
-                        || process.argv[4] == arguments[1]
+                    if ((doesItExist && !toChange) || (tChIn != arguments[1] && doesItExist) 
                     ) await new Promise(resolve => {
                         const msg = `${arguments[1] + C.r} already exists\n\n `
-                        const existingBook = `${Book.hashMap[arguments[1]] + C.r}\n\n`
+                        const existingBook = `${doesItExist + C.r}\n\n`
                         const query = `Do you want to OVERWRITE ${C.w + arguments[1]}`
                         const odd = `${C.g} ?\n${C.r}[${C.g}will lose its position${C.r}]${C.w} `
                         const alert = msg + existingBook + query + odd
@@ -82,7 +87,7 @@ export default async function record(input = '') {
                     
                     // if positive, user will registry knowledge
                     const h = `Book.enqueue(${"`" + aNew + "`"}, ${"`" + arguments[1] + "`"})\n`
-                    if (process.argv[2] == 'to' && process.argv[3] == 'change') return resolve(h)
+                    if (toChange) return resolve(h)
 
                     // saving process handler
                     console.log('\nLearning...\n')
