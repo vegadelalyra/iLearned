@@ -3,8 +3,6 @@ import { trollMessages } from './trollMessages.js'
 import chapter from './resultFormat.js'
 import Book from '../../saveQueue.js'
 import '../../../../bin/input.js'
-import readline from 'readline'
-import { stdin, stdout } from 'process'
 
 export default async function record(input = '') {
 
@@ -58,9 +56,9 @@ export default async function record(input = '') {
                     // if negative, user will modify his input
                     if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
 
-
-                    // if positive, existence validation will be triggered.
-                    if ((Book.hashMap[arguments[1]] && process.argv[2] != 'to' && process.argv[2] != 'change')
+                    // if user is not changing a book but recording a new one and this already exists or
+                    // if user is changing a book and validation script will be triggered.
+                    if ((Book.hashMap[arguments[1]] && process.argv[2] != 'to' && process.argv[3] != 'change')
                         || process.argv[4] == arguments[1]
                     ) await new Promise(resolve => {
                         const msg = `${arguments[1] + C.r} already exists\n\n `
@@ -70,7 +68,15 @@ export default async function record(input = '') {
                         const alert = msg + existingBook + query + odd
                         setImmediate(() => rlWrite('OVERWRITE IT!!!')) 
                         rl.question(alert, answer => {
+                            // if user rejects overwriting
                             if (/^[^yos]/i.test('answer') || answer.length == 0) return record('', arguments)
+                            
+                            // if user accepts overwriting
+                            fs.readFile('input.js', 'utf8', (err, data) => {
+                                if (err) throw err
+
+                                const lines = data.split('\n')
+                            })
                         }) 
                     })
                     
