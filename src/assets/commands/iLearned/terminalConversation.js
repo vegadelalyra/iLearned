@@ -7,6 +7,7 @@ import '../../../../bin/input.js'
 export default async function record(input = '') {
 
     // when user wants to modify the record
+    const toChange = process.argv[2] == 'to' && process.argv[3] == 'change'
     if (input === '') console.log("\nA'ight, let's fix your record!")
     let modifyValues = Object.assign({}, arguments)
     if (arguments[3] == '') modifyValues = Object.assign({}, { 0: '', 1: arguments })
@@ -57,14 +58,14 @@ export default async function record(input = '') {
                     if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
 
                     // variables required to validate overwritten books whilst learning or changing books
-                    const toChange = process.argv[2] == 'to' && process.argv[3] == 'change'
                     let tChIn = process.argv.slice(4).join(' ').trim()
                     tChIn = tChIn.slice(0, tChIn.indexOf('/'))
                     const doesItExist = Book.hashMap[arguments[1]]
-                    
+
                     // if user is not changing a book but recording a new one and this already exists or
                     // if user is changing a book and validation script will be triggered.
-                    if ((doesItExist && !toChange) || (tChIn != arguments[1] && doesItExist) 
+                    console.log('TESTING: toChange', toChange, 'itExist: ', doesItExist)
+                    if ((doesItExist && !toChange) || (tChIn.trim() != arguments[1] && doesItExist) 
                     ) await new Promise(resolve => {
                         const msg = `${arguments[1] + C.r} already exists\n\n `
                         const existingBook = `${doesItExist + C.r}\n\n`
@@ -74,8 +75,8 @@ export default async function record(input = '') {
                         setImmediate(() => rlWrite('OVERWRITE IT!!!')) 
                         rl.question(alert, answer => {
                             // if user rejects overwriting
-                            if (/^[^yos]/i.test('answer') || answer.length == 0) return record('', arguments)
-                            
+                            if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
+                            return console.log('object');
                             // if user accepts overwriting
                             fs.readFile('input.js', 'utf8', (err, data) => {
                                 if (err) throw err
@@ -111,7 +112,7 @@ export default async function record(input = '') {
                         rl.close()
                     }, 1369)
                 }); rlWrite('Yes')
-            }); if (process.argv[2] == 'to' && process.argv[3] == 'change') return utterBook
+            }); if (toChange) return utterBook
             break
 
         default:
