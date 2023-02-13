@@ -61,12 +61,15 @@ export default async function record(input = '') {
                     let tChIn = process.argv.slice(4).join(' ').trim()
                     tChIn = tChIn.slice(0, tChIn.indexOf('/'))
                     const doesItExist = Book.hashMap[arguments[1]]
+                    const h = `Book.enqueue(${"`" + aNew + "`"}, ${"`" + arguments[1] + "`"})\n`
+
+                    // Overwritten ?
+                    const overWrite = (doesItExist && !toChange) || 
+                    (tChIn.trim() != arguments[1] && doesItExist) 
 
                     // if user is not changing a book but recording a new one and this already exists or
                     // if user is changing a book and validation script will be triggered.
-                    console.log('TESTING: toChange', toChange, 'itExist: ', doesItExist)
-                    if ((doesItExist && !toChange) || (tChIn.trim() != arguments[1] && doesItExist) 
-                    ) await new Promise(resolve => {
+                    if (overWrite) await new Promise(resolve => {
                         const msg = `${arguments[1] + C.r} already exists\n\n `
                         const existingBook = `${doesItExist + C.r}\n\n`
                         const query = `Do you want to OVERWRITE ${C.w + arguments[1]}`
@@ -76,24 +79,33 @@ export default async function record(input = '') {
                         rl.question(alert, answer => {
                             // if user rejects overwriting
                             if (/^[^yos]/i.test(answer) || answer.length == 0) return record('', arguments)
-                            return console.log('object');
+                            
                             // if user accepts overwriting
-                            fs.readFile('input.js', 'utf8', (err, data) => {
+                            return fs.readFile('input.js', 'utf8', (err, data) => {
                                 if (err) throw err
 
+                                // Replace the overwritten line
                                 const lines = data.split('\n')
+                                const replaced = lines.findIndex(
+                                    x => x.includes(', `' + arguments[1] + '`')
+                                ); lines.splice(replaced, 1, h)
+                                
+                                // Write new file
+                                const newData = lines.join('\n')
+                                fs.writeFileSync('input.js', newData, e => { if (e) throw e })
+                                resolve()
                             })
                         }) 
                     })
                     
                     // if positive, user will registry knowledge
-                    const h = `Book.enqueue(${"`" + aNew + "`"}, ${"`" + arguments[1] + "`"})\n`
                     if (toChange) return resolve(h)
 
                     // saving process handler
-                    console.log('\nLearning...\n')
-                    fs.appendFile('input.js', h, err => { if (err) throw err })
+                    console.log('\nLearning...\n'); let BOOK
                     Book.enqueue('\x1b[37m\n> ' + aNew, arguments[1])
+                    if (!overWrite) fs.appendFile('input.js', h, err => { if (err) throw err })
+                    else BOOK = await import('../../saveQueue.js').then(x => x.default)
 
                     // huge guard clause in case it's the first user input 
                     fs.readFile('input.js', 'utf8', (err, data) => {
@@ -107,10 +119,13 @@ export default async function record(input = '') {
                     })
 
                     // showcase result
-                    setTimeout(() => {
-                        console.log(`\x1b[33m¡¡¡ New knowledge successfully recorded !!! *:･ﾟ✧＼(^ω^＼)\n\n${Book.show()}\n\n\x1b[33m${'~'.repeat(process.stdout.columns)}\n`)
-                        rl.close()
-                    }, 1369)
+                    showCase(BOOK)
+                    function showCase(fn = Book) {
+                        setTimeout(() => {
+                            console.log(`\x1b[33m¡¡¡ New knowledge successfully recorded !!! *:･ﾟ✧＼(^ω^＼)\n\n${fn.show()}\n\n\x1b[33m${'~'.repeat(process.stdout.columns)}\n`)
+                            rl.close()
+                        }, 1369)
+                    }
                 }); rlWrite('Yes')
             }); if (toChange) return utterBook
             break
